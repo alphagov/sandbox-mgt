@@ -1,16 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load flow_state %}
-{% load analytics %}
-{% load i18n %}
 
 {% block head %}
   <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
-  {% analytics %}
 {% endblock %}
 
 {% block page_title %}
-  {% trans "Publish Data" %}
+  "Publish Data"
 {% endblock %}
 
 {% block header_class %}with-proposition{% endblock %}
@@ -24,8 +20,8 @@
 
 {% block cookie_message %}
   <p>
-    {% trans "data.gov.uk uses cookies to make the site simpler." %}
-    <a href="{% url 'cookies' %}">{% trans "Find out more about cookies." %}</a>
+    "data.gov.uk uses cookies to make the site simpler."
+    <a href="{% url 'cookies' %}">"Find out more about cookies."</a>
   </p>
 {% endblock %}
 
