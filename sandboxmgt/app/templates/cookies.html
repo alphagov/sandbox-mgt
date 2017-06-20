@@ -1,0 +1,275 @@
+% extends 'main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block page_title %}
+  {% trans "Cookies" %}
+{% endblock %}
+
+{% block inner_content %}
+  {% blocktrans %}
+    <div class="grid-row">
+      <div class="column-two-thirds">
+        <h1 class="heading-large">Cookies on data.gov.uk</h1>
+        <div class="summary">
+          <p>data.gov.uk puts small files (known as ‘cookies’) onto your computer to collect information about how you browse the site.</p>
+        </div>
+
+        <p>Cookies are used to:</p>
+
+        <ul class="classic">
+          <li>measure how you use the website so it can be updated and improved based on your needs</li>
+          <li>remember the notifications you’ve seen so that we don’t show them to you again</li>
+        </ul>
+
+        <div role="note" aria-label="Information" class="application-notice info-notice">
+          <p>data.gov.uk cookies aren’t used to identify you personally.</p>
+        </div>
+
+        <p>You’ll normally see a message on the site before we store a cookie on your computer.</p>
+
+        <p>Find out more about <a rel="external" href="http://www.aboutcookies.org/">how to manage cookies</a>.</p>
+
+        <h2 class="heading-medium" id="how-cookies-are-used-on-govuk">How cookies are used on data.gov.uk</h2>
+
+        <h3 class="heading-small" id="measuring-website-usage-google-analytics">Measuring website usage (Google Analytics)</h3>
+
+        <p>We use Google Analytics software to collect information about how you use data.gov.uk. We do this to help make sure the site is meeting the needs of its users and to help us make improvements, for example <a rel="external" href="https://insidegovuk.blog.gov.uk/2015/03/26/new-tool-to-see-trending-searches/">improving site search</a>.</p>
+
+        <p>Google Analytics stores information about:</p>
+
+        <ul class="classic">
+          <li>the pages you visit on data.gov.uk</li>
+          <li>how long you spend on each data.gov.uk page </li>
+          <li>how you got to the site  </li>
+          <li>what you click on while you’re visiting the site</li>
+        </ul>
+
+        <p>We don’t collect or store your personal information (for example your name or address) so this information can’t be used to identify who you are.</p>
+
+        <div role="note" aria-label="Information" class="application-notice info-notice">
+          <p>We don’t allow Google to use or share our analytics data.</p>
+        </div>
+
+        <p>Google Analytics sets the following cookies:</p>
+
+        <h3 class="heading-small" id="universal-analytics">Universal Analytics</h3>
+
+        <table class="with-margin">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Purpose</th>
+              <th>Expires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>_ga</td>
+              <td>This helps us count how many people visit data.gov.uk by tracking if you’ve visited before</td>
+              <td>2 years</td>
+            </tr>
+            <tr>
+              <td>_gat</td>
+              <td>Used to manage the rate at which page view requests are made</td>
+              <td>10 minutes</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="heading-small" id="google-analytics">Google Analytics</h3>
+
+        <table class="with-margin"
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Purpose</th>
+              <th>Expires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>_utma</td>
+              <td>Like _ga, this lets us know if you’ve visited before, so we can count how many of our visitors are new to data.gov.uk or to a certain page</td>
+              <td>2 years</td>
+            </tr>
+            <tr>
+              <td>_utmb</td>
+              <td>This works with _utmc to calculate the average length of time you spend on data.gov.uk</td>
+              <td>30 minutes</td>
+            </tr>
+            <tr>
+              <td>_utmc</td>
+              <td>This works with _utmb to calculate when you close your browser</td>
+              <td>when you close your browser</td>
+            </tr>
+            <tr>
+              <td>_utmz</td>
+              <td>This tells us how you reached data.gov.uk (for example from another website or a search engine)</td>
+              <td>6 months</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="heading-small" id="govuk-events">data.gov.uk events</h3>
+
+        <table class="with-margin"
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Purpose</th>
+              <th>Expires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>analytics_next_page_call</td>
+              <td>This lets us know the next page you visit on data.gov.uk, so we can make journeys better</td>
+              <td>when you close your browser</td>
+            </tr>
+            <tr>
+              <td>govuk_contact_referrer</td>
+              <td>This lets us know the last page you visited before using the contact data.gov.uk form</td>
+              <td>1 day</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>You can <a rel="external" href="https://tools.google.com/dlpage/gaoptout">opt out of Google Analytics cookies</a>.</p>
+
+        <h3 class="heading-small" id="javascript-detection">JavaScript detection</h3>
+
+        <p>We measure how many people visiting data.gov.uk are using JavaScript. We’re re-running <a rel="external" href="https://gds.blog.gov.uk/2013/10/21/how-many-people-are-missing-out-on-javascript-enhancement/">a test we first used in 2013</a>.</p>
+
+        <table class="with-margin"
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Purpose</th>
+              <th>Expires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>JS-Detection</td>
+              <td>This tells us if you are browsing data.gov.uk while running JavaScript</td>
+              <td>1 year</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="heading-small" id="our-introductory-message">Our introductory message</h3>
+
+        <p>You may see a pop-up welcome message when you first visit data.gov.uk. We’ll store a cookie so that your computer knows you’ve seen it and knows not to show it again.</p>
+
+        <table class="with-margin"
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Purpose</th>
+              <th>Expires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>seen_cookie_message</td>
+              <td>Saves a message to let us know that you’ve seen our cookie message</td>
+              <td>1 month</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="heading-small" id="making-secure-connections-to-websites">Making secure connections to websites</h3>
+
+        <p>Your browser uses cookies to make secure connections to websites with a ‘https’ URL. There are different versions for different levels of security.</p>
+
+        <table class="with-margin"
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Purpose</th>
+              <th>Expires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>TLSVersion</td>
+              <td>Tells us the highest version of TLS your browser uses so we can decide which versions to keep supporting</td>
+              <td>When you close your browser</td>
+            </tr>
+          </tbody>
+        </table>
+
+
+        <h3 class="heading-small" id="browser-upgrade-prompt">Browser upgrade prompt</h3>
+
+        <p>We log a cookie the first time you visit data.gov.uk to let us know you’ve visited once.</p>
+
+        <p>If you’re using an out-of-date browser the next time you visit, we’ll show you a message suggesting you upgrade.</p>
+
+        <p>We’ll also save a cookie that lets us know you don’t want to see the prompt if you dismiss it.</p>
+
+        <table class="with-margin"
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Purpose</th>
+              <th>Expires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>govuk_not_first_visit</td>
+              <td>Stops us prompting you to upgrade an out-of-date browser until after your first visit</td>
+              <td>28 days</td>
+            </tr>
+            <tr>
+              <td>govuk_browser_upgrade_dismissed</td>
+              <td>Saves a message to let us know you’ve seen and dismissed the browser upgrade prompt</td>
+              <td>28 days</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="heading-small" id="our-performance-survey">Our performance survey</h3>
+
+        <p>We sometimes select some users to take part in a performance survey. If you take part, or dismiss the survey, we’ll save a cookie that lets us know you’ve seen the message so that we don’t show it to you again.</p>
+
+        <table class="with-margin"
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Purpose</th>
+              <th>Expires</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>govuk_takenUserSatisfactionSurvey</td>
+              <td>Saves a message to remember if you’ve taken the survey or dismissed it</td>
+              <td>4 months</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>We use <a rel="external" href="http://www.surveymonkey.com/">SurveyMonkey</a> to collect responses to the survey. If you take part, SurveyMonkey will save extra cookies to your computer to track your progress through it.</p>
+
+        <table class="with-margin"
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>mbox, SSOE, TS5159a2 and TSd0b041, ep201, ep202, utma, utmc and utmz</td>
+              <td>We use Survey Monkey for the performance survey on data.gov.uk. For more information, please see <a rel="external" href="https://www.surveymonkey.com/mp/policy/privacy-policy/">Survey Monkey privacy information</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {% endblocktrans %}
+{% endblock %}

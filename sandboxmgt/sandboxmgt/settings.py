@@ -59,7 +59,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(
                 PROJECT_DIR,
-                'assets/govuk_template/templates/govuk_template')],
+                'sandboxmgt/assets/govuk_template/templates/govuk_template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,6 +126,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, "assets/govuk_template/static"),
-    os.path.join(PROJECT_DIR, "assets"),
+    os.path.join(PROJECT_DIR, "sandboxmgt/assets/govuk_template/static"),
+    os.path.join(PROJECT_DIR, "sandboxmgt/assets"),
 ]
