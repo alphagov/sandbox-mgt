@@ -8,10 +8,34 @@
 
 {% block content %}
 
+<main id="main" role="main">
+<div class="container">
+      <div class="grid-row contact">
+
+<div class="column-one-whole">
+<h1 class="heading-large">Request a sandbox</h1>
+
+<p>Info info</p>
+
 <form action="/your-name/" method="post">
-    <label for="your_name">Your name: </label>
+    <label for="your_name">Your email address: </label>
     <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+
+    <label for="your_name">Your github user name: </label>
+    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+
+    <h3>Terms of Use</h3>
+    <p>Here are the terms</p>
+
+    <label for="your_name">I agree to Terms of Use: </label>
+    <input id="your_name" type="checkbox" name="your_name" value="{{ current_name }}">
+
     <input type="submit" value="OK">
 </form>
+
+</div>
+</div>
+</div>
+</main>
 
 {% endblock %}
