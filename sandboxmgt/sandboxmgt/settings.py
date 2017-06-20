@@ -54,10 +54,14 @@ ROOT_URLCONF = 'sandboxmgt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(
+                PROJECT_DIR,
+                'assets/govuk_template/templates/govuk_template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'sandboxmgt.context_processors.govuk_overrides',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -118,3 +122,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_DIR, "assets/govuk_template/static"),
+    os.path.join(PROJECT_DIR, "assets"),
+]
