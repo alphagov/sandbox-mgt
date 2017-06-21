@@ -10,3 +10,19 @@ A dev can install this code locally and run the server:
     cd sandbox-mgt/sandboxmgt
     pip install -r ../requirements.txt
     ./manage.py runserver
+
+
+## Deploy to PaaS
+
+To deploy to GOV.UK PaaS:
+
+1. Get permissions. Dan needs to request the PaaS team adds you to the 'gds-data-science' org. Then Dan or sandbox team need to add you to the sandbox-dev space.
+
+2. Login and target the dev box (or staging/production in future)
+
+    cf login
+    cf target -s sandbox-dev
+
+3. Deploy. You should be in a checked-out sandbox-mgt directory. It deploys whatever state your repo is currently in):
+
+    cf push sandbox-mgt
