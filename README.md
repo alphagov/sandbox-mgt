@@ -33,13 +33,9 @@ To deploy to PaaS:
 
 2. Login and target the dev box (or staging/production in future):
 
-```
-cf login -a api.cloud.service.gov.uk -u <YOUR-EMAIL-ADDRESS>
-cf target -s sandbox-dev
-```
+       cf login -a api.cloud.service.gov.uk -u <YOUR-EMAIL-ADDRESS>
+       cf target -s sandbox-dev
 
-3. Deploy. You should be in a checked-out sandbox-mgt directory. It deploys whatever state your repo is currently in):
+3. Deploy. You should be in the root dir of your clone of the sandbox-mgt repo. This command deploys whatever state your repo is currently in:
 
-```
-cf push sandbox-mgt
-```
+       cf push sandbox-mgt
