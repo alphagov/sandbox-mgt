@@ -11,6 +11,21 @@ export HTTP_USERNAME='yourusername'
 export HTTP_PASSWORD='yourpassword'
 ```
 
+## Environment variables on the PAAS
+
+Check existing environment variables:
+
+```
+cf env sandbox-mgt
+```
+
+Set environment variables on PAAS:
+
+```
+cf set-env sandbox-mgt HTTP_USERNAME ENV_VAR_VALUE
+cf set-env sandbox-mgt HTTP_PASSWORD ENV_VAR_VALUE
+```
+
 ## Setup
 
 A dev can install this code locally and run the server:
