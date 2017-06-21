@@ -1,0 +1,5 @@
+---
+applications:
+- name: sandbox-mgt
+  memory: 512M
+  buildpack: python_buildpack
