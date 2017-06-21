@@ -1611,6 +1611,9 @@ input[type=number] {
 #global-header.with-proposition .header-proposition #proposition-links li {
   padding: 0 0 0 15px; }
 
+.column-two-thirds {
+  padding: 0; }
+
 .phase-banner {
   font-family: "nta", Arial, sans-serif;
   font-weight: 700;
