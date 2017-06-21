@@ -20,11 +20,11 @@ To deploy to PaaS:
 
 1. Get permissions. Dan needs to request the PaaS team adds you to the 'gds-data-science' org. Then Dan or sandbox team need to add you to the sandbox-dev space.
 
-2. Login and target the dev box (or staging/production in future)
+2. Login and target the dev box (or staging/production in future):
 
-    cf login -a api.cloud.service.gov.uk -u <YOUR-EMAIL-ADDRESS>
-    cf target -s sandbox-dev
+        cf login -a api.cloud.service.gov.uk -u <YOUR-EMAIL-ADDRESS>
+        cf target -s sandbox-dev
 
 3. Deploy. You should be in a checked-out sandbox-mgt directory. It deploys whatever state your repo is currently in):
 
-    cf push sandbox-mgt
+        cf push sandbox-mgt
