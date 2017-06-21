@@ -1,0 +1,29 @@
+{
+  "name": "publish_data_alpha",
+  "version": "1.0.0",
+  "description": "A data publication platform",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "govuk-elements-sass": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^2.3.2"
+  },
+  "devDependencies": {
+    "gulp-batch": "^1.0.5",
+    "gulp-watch": "^4.3.11"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/datagovuk/publish_data_alpha.git"
+  },
+  "author": "The data.gov.uk team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/datagovuk/publish_data_alpha/issues"
+  },
+  "homepage": "https://github.com/datagovuk/publish_data_alpha#readme"
+}
