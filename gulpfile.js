@@ -13,7 +13,7 @@ var govuk_frontend_toolkit_root =
 var govuk_elements_sass_root =
   repo_root + 'node_modules/govuk-elements-sass/public/sass';       // 2.
 
-var assets = './src/assets';
+var assets = './sandboxmgt/assets';
 
 var ignoredFiles =
   [ '.*', '#*', 'app_flymake.js' ]

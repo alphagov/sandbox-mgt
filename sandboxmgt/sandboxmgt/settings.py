@@ -16,7 +16,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_DIR = os.path.dirname(BASE_DIR)
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -46,6 +45,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'sandboxmgt.middleware.BasicAuthenticationMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -123,9 +123,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, "sandboxmgt/assets/govuk_template/static"),
     os.path.join(PROJECT_DIR, "sandboxmgt/assets"),
 ]
+
+# Basic HTTP Authentication
+HTTP_USERNAME = os.environ.get('HTTP_USERNAME')
+HTTP_PASSWORD = os.environ.get('HTTP_PASSWORD')
+
+# Content settings
+LOGO_LINK_TITLE = 'Go to the GOV.UK homepage'

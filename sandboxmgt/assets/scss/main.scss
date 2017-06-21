@@ -1,60 +1,158 @@
+// ------------------
+// variable overrides
+// ------------------
+
 $path: "/static/images/";
 
-$helvetica-regular: "HelveticaNeue", "Helvetica Neue", "Arial", "Helvetica", sans-serif;
-$nta-light-tabular: $helvetica-regular;
-$toolkit-font-stack: $helvetica-regular;
-$toolkit-font-stack-tabular: $helvetica-regular;
-$NTA-Light: $helvetica-regular;
-$NTA-Light-Tabular: $helvetica-regular;
-$Helvetica-Regular: $helvetica-regular;
-
-$alpine-fresh: #128400;
+$govuk-blue: #005ea5;
 
 
 @import 'govuk-elements';
 
+// ------------------
 // govuk-* overrides
+// ------------------
 
-#global-header {
+// product-name from Notify css
+
+#global-header,
+#global-header.with-proposition {
+
   #logo {
-    font-size: 26px;
-    line-height: 1.3;
+
+    white-space: nowrap;
+
+    #product-name {
+      font-size: 24px;
+      font-weight: 400;
+      padding-left: 5px;
+    }
+
   }
+
   .header-wrapper {
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-  #logo {
-    font-weight: normal;
-    background: none;
-    img {
-      display: none;
-    }
-  }
-  .phase-tag-logo {
-    @include phase-tag();
-    margin-top: 7px;
-  }
-  .header-proposition {
-    .content {
-      padding-top: 4px;
-    }
-    #proposition-links {
-      float: right;
-      li a {
-        font-weight: normal;
-        &.bold {
-          font-weight: 700;
+    .header-global {
+      .header-logo {
+
+        @include media(desktop) {
+          width: auto;
         }
+
+        &:after {
+          display: none;
+        }
+
       }
     }
   }
-  @media (min-width: 769px) {
-    .header-proposition #proposition-links li {
-      padding-right: 13px;
+
+  .header-proposition {
+    #proposition-links {
+      li {
+        padding: 0 0 0 15px;
+      }
+    }
+  }
+
+}
+
+// Phase banner from product-page-example
+.phase-banner {
+  @include bold-14;
+  padding: 2px 5px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  vertical-align: middle;
+  background: #005EA5;
+  border-color: #005EA5;
+}
+
+// Masthead/hero (big blue section)
+.masthead {
+  .heading-xlarge {
+    margin: 40px 0 30px 0;
+  }
+  .login-white {
+    a:link; a:visited {
+      color: #fff;
+    }
+    a:hover {
+      color: #d5e8f3;
     }
   }
 }
+.masthead .inner, .contact {
+  margin: 0 auto 60px auto;
+  padding-bottom: 60px;
+  max-width: 960px;
+}
+
+// Start now buttons, as per Notify
+.button-get-started {
+  padding: em(5) em(16) em(6) em(16);
+}
+.button-get-started {
+  margin-right: 15px;
+}
+
+
+// Sections
+
+.product-page-section h2 {
+    font-size: 27px;
+    line-height: 1.11111;
+    font-weight: 700;
+    text-transform: none;
+    margin: 0 0 30px;
+}
+.product-page-section {
+  margin: 0 auto;
+  padding-bottom: 30px;
+  max-width: 960px;
+}
+
+// BITS INHERITED FROM DGU
+
+// #global-header {
+//   #logo {
+//     font-size: 26px;
+//     line-height: 1.3;
+//   }
+//   .header-wrapper {
+//     padding-top: 20px;
+//     padding-bottom: 20px;
+//   }
+//   #logo {
+//     font-weight: normal;
+//     background: none;
+//     img {
+//       display: none;
+//     }
+//   }
+//   .phase-tag-logo {
+//     @include phase-tag();
+//     margin-top: 7px;
+//   }
+//   .header-proposition {
+//     .content {
+//       padding-top: 4px;
+//     }
+//     #proposition-links {
+//       float: right;
+//       li a {
+//         font-weight: normal;
+//         &.bold {
+//           font-weight: 700;
+//         }
+//       }
+//     }
+//   }
+//   @media (min-width: 769px) {
+//     .header-proposition #proposition-links li {
+//       padding-right: 13px;
+//     }
+//   }
+// }
 
 @media (min-width: 769px) {
   #global-header.with-proposition .header-wrapper .header-global {
@@ -361,45 +459,39 @@ div.tabs-content {
 
 .masthead {
   margin: 0;
-  background: $alpine-fresh;
+  background: $govuk-blue;
   color: $page-colour;
   .button-get-started {
-    color: $alpine-fresh;
+    color: $govuk-blue;
     background-color: $page-colour;
   }
   .login-white {
     line-height: 42px;
   }
-
-  a {
-    color: $page-colour;
-  }
-
-  // Start now buttons
-  .button-start,
-  .button-get-started {
-    @include bold-24;
-    background-image: file-url("icon-pointer-green.png");
-    background-repeat: no-repeat;
-    background-position: 95% 50%;
-    padding: em(5) em(41) em(6) em(16);
-
-    @include device-pixel-ratio {
-      background-image: file-url("icon-pointer-green-2x.png");
-      background-size: 30px 19px;
-    }
-
-    @include ie(6) {
-      background-image: file-url("icon-pointer-green-2x.png");
-    }
-  }
 }
+//   a {
+//     color: $page-colour;
+//   }
+//   // Start now buttons
+//   .button-start,
+//   .button-get-started {
+//     @include bold-24;
+//     background-image: file-url("icon-pointer-green.png");
+//     background-repeat: no-repeat;
+//     background-position: 95% 50%;
+//     padding: em(5) em(41) em(6) em(16);
 
-.masthead .inner, .contact {
-  margin: 0 auto;
-  padding-bottom: 3em;
-  max-width: 960px;
-}
+//     @include device-pixel-ratio {
+//       background-image: file-url("icon-pointer-green-2x.png");
+//       background-size: 30px 19px;
+//     }
+
+//     @include ie(6) {
+//       background-image: file-url("icon-pointer-green-2x.png");
+//     }
+//   }
+// }
+
 
 // navigation bar
 
