@@ -46,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'sandboxmgt.middleware.BasicAuthenticationMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -129,3 +130,7 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, "sandboxmgt/assets/govuk_template/static"),
     os.path.join(PROJECT_DIR, "sandboxmgt/assets"),
 ]
+
+# Basic HTTP Authentication
+HTTP_USERNAME = os.environ.get('HTTP_USERNAME')
+HTTP_PASSWORD = os.environ.get('HTTP_PASSWORD')
