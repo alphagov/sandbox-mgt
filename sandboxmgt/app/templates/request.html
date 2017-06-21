@@ -17,20 +17,38 @@
 
 <p>Info info</p>
 
-<form action="/your-name/" method="post">
-    <label for="your_name">Your email address: </label>
-    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+<form action="/request/" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label class="form-label" for="email">Your email address: </label>
+      <input class="form-control" id="email" type="text" name="email" value="{{ email }}">
+    </div>
 
-    <label for="your_name">Your github user name: </label>
-    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+    <div class="form-group">
+      <label class="form-label" for="github_username">Your github user name: </label>
+      <input class="form-control" id="github_username" type="text" name="github_username" value="{{ github_username }}">
+    </div>
 
-    <h3>Terms of Use</h3>
-    <p>Here are the terms</p>
+    <div class="form-group">
+      <label class="form-label" for="textarea">
+        Why do you need a Sandbox?
+      </label>
+      <textarea class="form-control form-control-3-4" name="textarea" id="textarea" rows="5"></textarea>
+    </div>
 
-    <label for="your_name">I agree to Terms of Use: </label>
-    <input id="your_name" type="checkbox" name="your_name" value="{{ current_name }}">
+    <div class="form-group">
+      <h3>Terms of Use</h3>
+      <p>Here are the terms</p>
 
-    <input type="submit" value="OK">
+      <div class="multiple-choice">
+        <input id="checkbox-terms" name="checkbox-terms" type="checkbox" value="true">
+        <label for="checkbox-terms">I agree to Terms of Use</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input class="button" type="submit" value="Submit">
+    </div>
 </form>
 
 </div>

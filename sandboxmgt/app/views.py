@@ -8,5 +8,6 @@ def home(request):
 
     return render(request, "home.html", {})
 
+
 def request_sandbox(request):
     return render(request, "request.html", {})
