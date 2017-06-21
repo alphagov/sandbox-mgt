@@ -1,16 +1,42 @@
 # sandbox-mgt
+
 Data Science Sandbox's Management webapp
+
+# Project Configuration
+
+Make sure you have these environment variables set before running the project:
+
+```
+export HTTP_USERNAME='yourusername'
+export HTTP_PASSWORD='yourpassword'
+```
+
+## Environment variables on the PAAS
+
+Check existing environment variables:
+
+```
+cf env sandbox-mgt
+```
+
+Set environment variables on PAAS:
+
+```
+cf set-env sandbox-mgt HTTP_USERNAME ENV_VAR_VALUE
+cf set-env sandbox-mgt HTTP_PASSWORD ENV_VAR_VALUE
+```
 
 ## Setup
 
 A dev can install this code locally and run the server:
 
-    git clone git@github.com:alphagov/sandbox-mgt.git
-    mkvirtualenv sandbox-mgt
-    cd sandbox-mgt/sandboxmgt
-    pip install -r ../requirements.txt
-    ./manage.py runserver
-
+```
+git clone git@github.com:alphagov/sandbox-mgt.git
+mkvirtualenv sandbox-mgt
+cd sandbox-mgt/sandboxmgt
+pip install -r ../requirements.txt
+./manage.py runserver
+```
 
 ## Deploy to PaaS
 
