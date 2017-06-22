@@ -22,5 +22,7 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^cookies$', TemplateView.as_view(
         template_name='cookies.html'), name='cookies'),
+    url(r'^thanks$', TemplateView.as_view(
+        template_name='thanks.html'), name='thanks'),
     url(r'^request$', views.request_sandbox, name='request_sandbox'),
 ]

@@ -111,7 +111,7 @@ To deploy to PaaS, set-up your account first.
        cf push sandbox-mgt
 
 
-## Password protection
+## Environment variables configuration
 
 On deployments, since this is an alpha, the site should be password protected. This is achieved by setting environment variables.
 
@@ -125,10 +125,20 @@ and to set them:
 ```
 cf set-env sandbox-mgt HTTP_USERNAME <username>
 cf set-env sandbox-mgt HTTP_PASSWORD <password>
+cf set-env sandbox-mgt NOTIFY_API_KEY <api_key>
+cf set-env sandbox-mgt NOTIFY_EMAIL_TEMPLATE_ID <template_id>
+cf set-env sandbox-mgt NOTIFY_RECIPIENT_EMAIL <email_recipient>
 ```
 
 To test password protection locally:
 ```
 export HTTP_USERNAME='yourusername'
 export HTTP_PASSWORD='yourpassword'
+export NOTIFY_API_KEY='api_key'
+export NOTIFY_EMAIL_TEMPLATE_ID='template_id'
+export NOTIFY_RECIPIENT_EMAIL='email_recipient'
 ```
+
+### Note about Notify
+
+The Sandbox uses GOV.UK Notify to send emails. This requires a particular configuration to be set. We need a valid API token, the ID of an email template and a valid email recipient. Email template and API token cannot be obtained automatically and must be requested to one of the admins (Andrea Grandi or David Read).
