@@ -134,3 +134,6 @@ STATICFILES_DIRS = [
 # Basic HTTP Authentication
 HTTP_USERNAME = os.environ.get('HTTP_USERNAME')
 HTTP_PASSWORD = os.environ.get('HTTP_PASSWORD')
+
+# Content settings
+LOGO_LINK_TITLE = 'Go to the GOV.UK homepage'

@@ -1,0 +1,29 @@
+{
+  "name": "sandbox_mgt",
+  "version": "1.0.0",
+  "description": "Data Science Sandbox Management web app",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "govuk-elements-sass": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^2.3.2"
+  },
+  "devDependencies": {
+    "gulp-batch": "^1.0.5",
+    "gulp-watch": "^4.3.11"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alphagov/sandbox-mgt.git"
+  },
+  "author": "GDS",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alphagov/sandbox-mgt/issues"
+  },
+  "homepage": "https://github.com/alphagov/sandbox-mgt#readme"
+}
