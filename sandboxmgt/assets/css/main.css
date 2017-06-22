@@ -1915,9 +1915,6 @@ a.hero-button {
 #global-header.with-proposition .header-proposition #proposition-links li {
   padding: 0 0 0 15px; }
 
-.column-two-thirds {
-  padding: 0; }
-
 .header-logo .phase-banner {
   font-family: "nta", Arial, sans-serif;
   font-weight: 700;
@@ -1972,9 +1969,6 @@ a.hero-button {
     width: 31%; }
   #global-header.with-proposition .header-wrapper .header-proposition {
     width: 69%; } }
-
-div#global-header-bar {
-  display: none; }
 
 #global-cookie-message p {
   max-width: 960px; }

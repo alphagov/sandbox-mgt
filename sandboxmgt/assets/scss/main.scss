@@ -65,9 +65,6 @@ $govuk-blue: #005ea5;
   }
 
 }
-.column-two-thirds {
-  padding: 0;
-}
 
 // Phase banner (when shown in the black top bar) from product-page-example
 .header-logo .phase-banner {
@@ -172,10 +169,6 @@ $govuk-blue: #005ea5;
   }
 }
 
-
-div#global-header-bar {
-  display: none;
-}
 
 #global-cookie-message p {
   max-width: 960px;
