@@ -1,8 +1,14 @@
 from django import forms
+from .models import Request
 
+class RequestForm(forms.ModelForm):
+    class Meta:
+        model = Request
+        exclude = []
 
-class RequestForm(forms.Form):
-    email = forms.CharField(required=True, max_length=255)
-    github = forms.CharField(required=True, max_length=255)
-    message = forms.CharField(required=True)
-    agree = forms.BooleanField()
+    def __init__(self, *args, **kwargs):
+        super(RequestForm, self).__init__(*args, **kwargs)
+
+        # required = True will check if the box is checked, because data will
+        # only be submitted if it is checked.
+        self.fields['agree'].required = True

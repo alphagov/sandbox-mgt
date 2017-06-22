@@ -13,8 +13,8 @@ def request_sandbox(request):
     if request.method == 'POST':
         form = RequestForm(request.POST)
         if form.is_valid():
-            # TODO: Save form in the database
-            # ...
+            # Save form in the database
+            #form.save()
 
             # Send form data by email
             personalisation = {
