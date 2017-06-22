@@ -17,7 +17,7 @@
 
 <p>To request a sandbox, fill in this form. You must be a civil servant with an email ending in .gov.uk, and have a github account.</p>
 
-<form action="/request/" method="post">
+<form action="/request" method="post">
     {% csrf_token %}
     <div class="form-group">
       <label class="form-label" for="email">Your email address: </label>
@@ -26,14 +26,14 @@
 
     <div class="form-group">
       <label class="form-label" for="github_username">Your github user name: </label>
-      <input class="form-control" id="github_username" type="text" name="github_username" value="{{ github_username }}">
+      <input class="form-control" id="github_username" type="text" name="github" value="{{ github_username }}">
     </div>
 
     <div class="form-group">
       <label class="form-label" for="textarea">
         Tell us how you plan to use your sandbox
       </label>
-      <textarea class="form-control form-control-3-4" name="textarea" id="textarea" rows="5"></textarea>
+      <textarea class="form-control form-control-3-4" name="message" id="textarea" rows="5"></textarea>
     </div>
 
     <div class="form-group">
@@ -57,7 +57,7 @@
         </ul>
 
       <div class="multiple-choice">
-        <input id="checkbox-terms" name="checkbox-terms" type="checkbox" value="true">
+        <input id="checkbox-terms" name="agree" type="checkbox" value="true">
         <label for="checkbox-terms">I agree to Terms of Use</label>
       </div>
     </div>

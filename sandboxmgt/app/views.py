@@ -2,12 +2,27 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
 
-def home(request):
-    if request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('my_tasks'))
+from .forms import RequestForm
 
+
+def home(request):
     return render(request, "home.html", {})
 
 
 def request_sandbox(request):
-    return render(request, "request.html", {})
+    if request.method == 'POST':
+        form = RequestForm(request.POST)
+        if form.is_valid():
+            # TODO: Save form in the database
+            # ...
+
+            # TODO: Send form data by email
+            # ...
+
+            # Redirect user to a thank you page
+            return HttpResponseRedirect('/thanks/')
+
+    else:
+        form = RequestForm()
+
+    return render(request, 'request.html', {'form': form})
