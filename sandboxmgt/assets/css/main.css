@@ -1918,7 +1918,7 @@ a.hero-button {
 .column-two-thirds {
   padding: 0; }
 
-.phase-banner {
+.header-logo .phase-banner {
   font-family: "nta", Arial, sans-serif;
   font-weight: 700;
   text-transform: none;
@@ -1931,24 +1931,9 @@ a.hero-button {
   background: #005EA5;
   border-color: #005EA5; }
   @media (min-width: 641px) {
-    .phase-banner {
+    .header-logo .phase-banner {
       font-size: 14px;
       line-height: 1.42857; } }
-
-.masthead .heading-xlarge {
-  margin: 40px 0 30px 0; }
-
-.masthead .login-white {
-  a: link; }
-  .masthead .login-white a:visited {
-    color: #fff; }
-  .masthead .login-white a:hover {
-    color: #d5e8f3; }
-
-.masthead .inner, .contact {
-  margin: 0 auto 60px auto;
-  padding-bottom: 60px;
-  max-width: 960px; }
 
 .button-get-started {
   padding: 0.26316em 0.84211em 0.31579em 0.84211em; }
