@@ -137,3 +137,8 @@ HTTP_PASSWORD = os.environ.get('HTTP_PASSWORD')
 
 # Content settings
 LOGO_LINK_TITLE = 'Go to the GOV.UK homepage'
+
+# GOV.UK Notify
+NOTIFY_EMAIL_TEMPLATE_ID = os.environ.get('NOTIFY_EMAIL_TEMPLATE_ID')
+NOTIFY_API_KEY = os.environ.get('NOTIFY_API_KEY')
+NOTIFY_RECIPIENT_EMAIL = os.environ.get('NOTIFY_RECIPIENT_EMAIL')
