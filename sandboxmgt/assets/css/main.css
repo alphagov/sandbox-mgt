@@ -1,55 +1,56 @@
-.grid-row:after, #content:after, .notice:after, .panel:after, fieldset:after, .form-section:after, .form-group:after, .form-block:after, .breadcrumbs ol:after {
+@charset "UTF-8";
+.grid-row:after, .hero__content:after, #content:after, .notice:after, .panel:after, fieldset:after, .form-section:after, .form-group:after, .form-block:after, .breadcrumbs ol:after {
   content: "";
   display: block;
   clear: both; }
 
-#content {
+#content, .hero, .container {
   max-width: 960px;
   margin: 0 15px; }
   @media (min-width: 641px) {
-    #content {
+    #content, .hero, .container {
       margin: 0 30px; } }
   @media (min-width: 1020px) {
-    #content {
+    #content, .hero, .container {
       margin: 0 auto; } }
 
-.grid-row {
+.grid-row, .hero__content {
   margin: 0 -15px; }
 
-.grid-row:after, #content:after, .notice:after, .panel:after, fieldset:after, .form-section:after, .form-group:after, .form-block:after, .breadcrumbs ol:after {
+.grid-row:after, .hero__content:after, #content:after, .notice:after, .panel:after, fieldset:after, .form-section:after, .form-group:after, .form-block:after, .breadcrumbs ol:after {
   content: "";
   display: block;
   clear: both; }
 
-.grid-row:after, #content:after, .notice:after, .panel:after, fieldset:after, .form-section:after, .form-group:after, .form-block:after, .breadcrumbs ol:after {
+.grid-row:after, .hero__content:after, #content:after, .notice:after, .panel:after, fieldset:after, .form-section:after, .form-group:after, .form-block:after, .breadcrumbs ol:after {
   content: "";
   display: block;
   clear: both; }
 
-.grid-row:after, #content:after, .notice:after, .panel:after, fieldset:after, .form-section:after, .form-group:after, .form-block:after, .breadcrumbs ol:after {
+.grid-row:after, .hero__content:after, #content:after, .notice:after, .panel:after, fieldset:after, .form-section:after, .form-group:after, .form-block:after, .breadcrumbs ol:after {
   content: "";
   display: block;
   clear: both; }
 
-#content {
+#content, .hero, .container {
   max-width: 960px;
   margin: 0 15px; }
   @media (min-width: 641px) {
-    #content {
+    #content, .hero, .container {
       margin: 0 30px; } }
   @media (min-width: 1020px) {
-    #content {
+    #content, .hero, .container {
       margin: 0 auto; } }
 
-.grid-row {
+.grid-row, .hero__content {
   margin: 0 -15px; }
 
-.grid-row:after, #content:after, .notice:after, .panel:after, fieldset:after, .form-section:after, .form-group:after, .form-block:after, .breadcrumbs ol:after {
+.grid-row:after, .hero__content:after, #content:after, .notice:after, .panel:after, fieldset:after, .form-section:after, .form-group:after, .form-block:after, .breadcrumbs ol:after {
   content: "";
   display: block;
   clear: both; }
 
-.grid-row:after, #content:after, .notice:after, .panel:after, fieldset:after, .form-section:after, .form-group:after, .form-block:after, .breadcrumbs ol:after {
+.grid-row:after, .hero__content:after, #content:after, .notice:after, .panel:after, fieldset:after, .form-section:after, .form-group:after, .form-block:after, .breadcrumbs ol:after {
   content: "";
   display: block;
   clear: both; }
@@ -1589,6 +1590,309 @@ input[type=number] {
     display: list-item;
     display: revert; } }
 
+/**
+ * Masthead Component
+ *
+ * Notes:
+ * - It's big and it's blue
+ *
+ * Example Usage:
+ *
+ * <div class="masthead">
+ *  [...]
+ * </div>
+ */
+.masthead {
+  background-color: #005ea5; }
+
+/**
+ * Hero Component
+ *
+ * Notes:
+ * - If using together with a breadcrumb in a masthead, add the --breaded
+ *   modifier to reduce top padding.
+ * - There are two images included – one is shown on mobile (hero__inline-image),
+ *   and the other on tablet and above. Both are optional.
+ *
+ * Example Usage:
+ *
+ *  <div class="hero hero--breaded">
+ *    <div class="hero__content">
+ *      <div class="hero__body">
+ *        <h1 class="hero__title">Duis aute irure dolor in reprehenderit</h1>
+ *        <div class="hero__inline-image">
+ *          <img src="//placehold.it/646x492/005ea5/ffffff?text=A+supporting+image" alt="" role="presentation">
+ *        </div>
+ *        <p class="hero__description">
+ *          Lorem ipsum dolor sit amet, consectetur adipisicing elit
+ *        </p>
+ *        <a href="#" role="button" class="hero-button">
+ *          Do this thing
+ *        </a>
+ *        <span class="hero-alternative-action">
+ *          or <a href="#">do another thing</a> because reasons
+ *        </span>
+ *        <p>Pellentesque commodo arcu in sollicitudin lacinia. Vivamus lacus nibh, maximus nec laoreet eget, condimentum vel mi.</p>
+ *      </div>
+ *      <div class="hero__aside-image">
+ *        <img src="//placehold.it/646x492/005ea5/ffffff?text=A+supporting+image" alt="" role="presentation">
+ *      </div>
+ *    </div>
+ *  </div>
+ */
+.hero {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #fff;
+  padding: 15px 0; }
+  @media (min-width: 641px) {
+    .hero {
+      padding: 30px 0; } }
+  .hero--breaded {
+    padding-top: 0; }
+  .hero a:link,
+  .hero a:visited {
+    font-weight: bold;
+    color: #fff; }
+  .hero a:hover,
+  .hero a:active {
+    color: #d5e8f3; }
+  .hero a:focus {
+    color: #0b0c0c; }
+  .hero__title {
+    font-family: "nta", Arial, sans-serif;
+    font-weight: 700;
+    text-transform: none;
+    font-size: 32px;
+    line-height: 1.09375; }
+    @media (min-width: 641px) {
+      .hero__title {
+        font-size: 48px;
+        line-height: 1.04167; } }
+  .hero__description {
+    font-family: "nta", Arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    font-size: 18px;
+    line-height: 1.2; }
+    @media (min-width: 641px) {
+      .hero__description {
+        font-size: 24px;
+        line-height: 1.25; } }
+  .hero__title, .hero__description {
+    margin-bottom: 15px; }
+    @media (min-width: 641px) {
+      .hero__title, .hero__description {
+        margin-bottom: 30px; } }
+  .hero__inline-image {
+    text-align: center; }
+    @media (min-width: 641px) {
+      .hero__inline-image {
+        display: none;
+        visibility: hidden; } }
+    .hero__inline-image img {
+      width: 100%;
+      max-width: 320px; }
+  .hero__aside-image {
+    display: none;
+    visibility: hidden; }
+    @media (min-width: 641px) {
+      .hero__aside-image {
+        display: block;
+        visibility: visible; } }
+    .hero__aside-image img {
+      max-width: 100%;
+      margin-top: 15px; }
+  .hero__body, .hero__aside-image {
+    padding: 0 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+    @media (min-width: 641px) {
+      .hero__body, .hero__aside-image {
+        float: left;
+        width: 50%; } }
+  @media (min-width: 769px) {
+    .hero__body {
+      padding: 0 15px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box; } }
+  @media (min-width: 769px) and (min-width: 641px) {
+    .hero__body {
+      float: left;
+      width: 66.66667%; } }
+  @media (min-width: 769px) {
+    .hero__aside-image {
+      padding: 0 15px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box; } }
+  @media (min-width: 769px) and (min-width: 641px) {
+    .hero__aside-image {
+      float: left;
+      width: 33.33333%; } }
+
+/**
+ * Hero Button Component
+ *
+ * Notes:
+ * - Ensure you include shim-links-with-button-role.js from GOV.UK Frontend
+ *   Toolkit to ensure that the link acts like a button (i.e. the space bar
+ *   should trigger it).
+ *
+ * Example Usage:
+ *
+ * <a href="#" role="button" class="hero-button">
+ *   Do this thing
+ * </a>
+ */
+a.hero-button {
+  background-color: #fff;
+  position: relative;
+  display: -moz-inline-stack;
+  display: inline-block;
+  padding: .526315em .789473em .263157em;
+  border: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  outline: 1px solid transparent;
+  outline-offset: -1px;
+  -webkit-appearance: none;
+  -webkit-box-shadow: 0 2px 0 #d9d9d9;
+  -moz-box-shadow: 0 2px 0 #d9d9d9;
+  box-shadow: 0 2px 0 #d9d9d9;
+  font-size: 1em;
+  line-height: 1.25;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  cursor: pointer;
+  color: #0b0c0c;
+  font-family: "nta", Arial, sans-serif;
+  font-weight: 700;
+  text-transform: none;
+  font-size: 18px;
+  line-height: 1.2;
+  -webkit-box-shadow: 0 2px 0 #004172;
+  -moz-box-shadow: 0 2px 0 #004172;
+  box-shadow: 0 2px 0 #004172;
+  background-image: url("/static/images//images/hero-button/arrow.png");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: 95% 50%;
+  padding: 0.3684210526em 2.1578947368em 0.2105263158em 0.8421052632em;
+  margin: 0 0.416666667em 0.416666667em 0;
+  display: block;
+  text-align: center; }
+  a.hero-button:visited {
+    background-color: #fff; }
+  a.hero-button:hover, a.hero-button:focus {
+    background-color: #f2f2f2; }
+  a.hero-button:active {
+    top: 2px;
+    -webkit-box-shadow: 0 0 0 #fff;
+    -moz-box-shadow: 0 0 0 #fff;
+    box-shadow: 0 0 0 #fff; }
+  a.hero-button.disabled, a.hero-button[disabled="disabled"], a.hero-button[disabled] {
+    zoom: 1;
+    filter: alpha(opacity=50);
+    opacity: 0.5; }
+    a.hero-button.disabled:hover, a.hero-button[disabled="disabled"]:hover, a.hero-button[disabled]:hover {
+      cursor: default;
+      background-color: #fff; }
+    a.hero-button.disabled:active, a.hero-button[disabled="disabled"]:active, a.hero-button[disabled]:active {
+      top: 0;
+      -webkit-box-shadow: 0 2px 0 #d9d9d9;
+      -moz-box-shadow: 0 2px 0 #d9d9d9;
+      box-shadow: 0 2px 0 #d9d9d9; }
+  a.hero-button:link, a.hero-button:hover, a.hero-button:focus, a.hero-button:visited {
+    color: #0b0c0c; }
+  a.hero-button:before {
+    content: "";
+    height: 110%;
+    width: 100%;
+    display: block;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    left: 0; }
+  a.hero-button:active:before {
+    top: -10%;
+    height: 120%; }
+  @media (min-width: 641px) {
+    a.hero-button {
+      font-size: 24px;
+      line-height: 1.25; } }
+  @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 20 / 10), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+    a.hero-button {
+      background-image: url("/static/images//images/hero-button/arrow@2x.png"); } }
+  @media (min-width: 641px) {
+    a.hero-button {
+      display: inline-block;
+      text-align: left; } }
+  a.hero-button, a.hero-button:link, a.hero-button:visited {
+    color: #005ea5; }
+  a.hero-button:hover, a.hero-button:active {
+    background-color: #fff; }
+  a.hero-button:hover {
+    color: #2b8cc4; }
+  a.hero-button:active {
+    color: #2b8cc4; }
+
+/**
+ * Hero 'Alternative Action' Component
+ *
+ * To be used after a hero-button where there is an alternative CTA – for
+ * example 'or _sign in_ if you have an account already'.
+ *
+ * Will never wrap over two lines, it'll break onto a new line if the entire
+ * CTA doesn't fit after the button.
+ *
+ * Example Usage:
+ *
+ * <a href="#" role="button" class="hero-button">
+ *   Do this thing
+ * </a>
+ * <span class="hero-alternative-action">
+ *   or <a href="#">do another thing</a> because reasons
+ * </span>
+ */
+.hero-alternative-action {
+  font-family: "nta", Arial, sans-serif;
+  font-weight: 400;
+  text-transform: none;
+  font-size: 16px;
+  line-height: 1.25;
+  white-space: nowrap; }
+  @media (min-width: 641px) {
+    .hero-alternative-action {
+      font-size: 19px;
+      line-height: 1.31579; } }
+
+/**
+ * Content Section Component
+ *
+ * Represents a section of content on the product page, with a title and
+ * optional image.
+ *
+ * Example Usage:
+ *
+ * <section class="content-section">
+ *   <h2 class="content-section__title">Section Title</h2>
+ *   <p class="content-section__body">Lorem ipsum dolor...</p>
+ * </section>
+ */
+.content-section {
+  margin-top: 30px; }
+  .content-section__image {
+    max-width: 100%; }
+  .content-section--with-top-border {
+    padding-top: 30px;
+    border-top: 1px #dee0e2 solid; }
+    .content-section--with-top-border .content-section__first-heading {
+      margin-top: 0; }
+
 #global-header #logo,
 #global-header.with-proposition #logo {
   white-space: nowrap; }
@@ -1663,6 +1967,20 @@ input[type=number] {
   margin: 0 auto;
   padding-bottom: 30px;
   max-width: 960px; }
+
+.content-section {
+  margin-top: 30px; }
+  .content-section__title {
+    font-family: "nta", Arial, sans-serif;
+    font-weight: 700;
+    text-transform: none;
+    font-size: 24px;
+    line-height: 1.04167;
+    margin-bottom: 10px; }
+    @media (min-width: 641px) {
+      .content-section__title {
+        font-size: 36px;
+        line-height: 1.11111; } }
 
 @media (min-width: 769px) {
   #global-header.with-proposition .header-wrapper .header-global {

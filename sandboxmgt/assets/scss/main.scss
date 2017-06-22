@@ -6,8 +6,18 @@ $path: "/static/images/";
 
 $govuk-blue: #005ea5;
 
+// ------------------
+// GDS imports
+// ------------------
 
 @import 'govuk-elements';
+
+// https://github.com/alphagov/product-page-example/tree/master/source/stylesheets/modules
+@import 'masthead';
+@import 'hero';
+@import 'hero-button';
+@import 'hero-alternative-action';
+@import 'content-section';
 
 // ------------------
 // govuk-* overrides
@@ -90,6 +100,12 @@ $govuk-blue: #005ea5;
   max-width: 960px;
 }
 
+// Widths of container etc. From product-page-example's _core.scss
+.container {
+  @extend %site-width-container;
+}
+
+
 // Start now buttons, as per Notify
 .button-get-started {
   padding: em(5) em(16) em(6) em(16);
@@ -112,6 +128,15 @@ $govuk-blue: #005ea5;
   margin: 0 auto;
   padding-bottom: 30px;
   max-width: 960px;
+}
+// content-section__title based on Pay's screen.css
+.content-section {
+  margin-top: $gutter;
+
+  &__title {
+    @include bold-36;
+    margin-bottom: $gutter-one-third;
+  }
 }
 
 // BITS INHERITED FROM DGU

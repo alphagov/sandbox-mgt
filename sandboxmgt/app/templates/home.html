@@ -7,52 +7,63 @@
 {% endblock %}
 
 {% block content %}
-  <main role="main" tabindex="-1">
-    <div class="masthead">
-      <div class="grid-row inner">
-        <div class="column-two-thirds">
-          {% blocktrans %}
-            <h1 class="heading-xlarge">
-              Government data science sandbox
-            </h1>
-            <p class="lede">
-              Government analysis is changing, with data science tools and techniques playing a bigger role. This is an alpha version of a sandbox environment that helps civil servants adapt to that change.
-            </p>
-          {% endblocktrans %}
-          <a
-              class="button button-get-started"
-              href="{# url 'signin' #}"
-              role="button">
-            {% trans "Request a sandbox" %}
+<main id="main" role="main" tabindex="-1">
+  <div class="masthead">
+    <div class="hero">
+      <div class="hero__content">
+        <div class="hero__body">
+          <h1 class="hero__title">Write code in your browser to analyse your data</h1>
+          <div class="hero__inline-image">
+            <img src="//placehold.it/646x492/005ea5/ffffff?text=A+supporting+image" alt="" role="presentation">
+          </div>
+          <p class="hero__description">
+            Try the Data Science Sandbox now if you work for a UK government department or agency.
+          </p>
+          <a href="/request" role="button" class="hero-button">
+            Request a sandbox
           </a>
-          {% blocktrans %}
-            <span class="login-white">
-              or <a href="">sign in</a> if you have already requested one.
-            </span>
-          {% endblocktrans %}
+          <span class="hero-alternative-action">
+            or <a href="#">sign in</a> if you already have one
+          </span>
+          <!--<p>Pellentesque commodo arcu in sollicitudin lacinia. Vivamus lacus nibh, maximus nec laoreet eget, imentum vel mi.</p>-->
         </div>
+        <!--
+        <div c="hero__aside-image">
+          <img="//placehold.it/646x492/005ea5/ffffff?text=A+supporting+image" alt="" role="presentation">
+        </div>
+        -->
       </div>
     </div>
-      <div class="grid-row product-page-section">
-        <div class="column-two-thirds">
-          {% blocktrans %}
-            <h2>Try new tools and techniques</h2>
-            <p>
-             Civil servants can use their sandbox to test analytical tools using their government issued devices, learn about their capabilities, and get help building a case for their department to invest in the tools and skills to support them at scale.
-            </p>
-          {% endblocktrans %}
-        </div>
-      </div>
-      <div class="grid-row product-page-section contact">
-        <div class="column-two-thirds">
-          {% blocktrans %}
-            <h2>Contact the data.gov.uk team</h2>
-            <p>
-              The sandbox is being developed by the Better use of Data team at the <a href="https://www.gov.uk/government/organisations/government-digital-service">Government Digital Service</a>.
-            </p>
-            <p><a href="mailto:data-science-sandbox@digital.cabinet-office.gov.uk">Contact the team</a> if you have a question or wish to give feedback.</p>
-          {% endblocktrans %}
-        </div>
-      </div>
-  </main>
+  </div>
+
+  <div class="container">
+    <section class="content-section">
+      {% blocktrans %}
+        <h2 class="content-section__title">Try new tools and techniques</h2>
+        <p class="content-section__body">
+         Civil servants can use their sandbox to test analytical tools using their government issued devices, learn about their capabilities, and get help building a case for their department to invest in the tools and skills to support them at scale.
+        </p>
+      {% endblocktrans %}
+    </section>
+  </div>
+
+  <div class="container">
+    <section class="content-section">
+        <h2 class="content-section__title">The background</h2>
+        <p class="content-section__body">Government analysis is changing, with data science tools and techniques playing a bigger role. This is an alpha version of a sandbox environment that helps civil servants adapt to that change.</p>
+    </section>
+  </div>
+
+  <div class="container">
+    <section class="content-section content-section--with-top-border">
+      {% blocktrans %}
+        <h2 class="content-section__title">Contact the team</h2>
+        <p class="content-section__body">
+          The sandbox is being developed by the Better Use of Data team at the <a href="https://www.gov.uk/government/organisations/government-digital-service">Government Digital Service</a>.
+        </p>
+        <p><a href="mailto:data-science-sandbox@digital.cabinet-office.gov.uk">Contact the team</a> if you have a question or wish to give feedback.</p>
+      {% endblocktrans %}
+    </section>
+  </div>
+</main>
 {% endblock %}

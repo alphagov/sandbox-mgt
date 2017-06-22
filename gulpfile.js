@@ -12,6 +12,8 @@ var govuk_frontend_toolkit_root =
   repo_root + 'node_modules/govuk_frontend_toolkit/stylesheets'; // 1.
 var govuk_elements_sass_root =
   repo_root + 'node_modules/govuk-elements-sass/public/sass';       // 2.
+var product_page_example_scss =
+  repo_root + '../product-page-example/source/stylesheets/modules';
 
 var assets = './sandboxmgt/assets';
 
@@ -29,7 +31,8 @@ gulp.task('styles', function () {
   return gulp.src(scssFiles)
     .pipe(sass({includePaths: [
       govuk_frontend_toolkit_root,
-      govuk_elements_sass_root
+      govuk_elements_sass_root,
+      product_page_example_scss,
       ]}).on('error', sass.logError))
     .pipe(gulp.dest(assets + '/css'));
 });

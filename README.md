@@ -56,6 +56,8 @@ Once it is edited, you need to recompile the styles (see next section) which wil
 
     sandboxmgt/assets/css/main.css
 
+Note there are other compiled assets which have been simply copied into this repo and do not have a compilation pipeline set-up. e.g. govuk-template.css
+
 ### Re-compiling assets
 
 Assets from those packages are already included in this repository.
@@ -82,7 +84,13 @@ the developer will have to recompile locally. To do this:
 
         npm install
 
-4. Use gulp to compile the SCSS files:
+4. Clone product-page-example alongside this repo:
+
+        cd ..
+        git clone git@github.com:alphagov/product-page-example.git
+        cd sandbox-mgt
+
+5. Use gulp to compile the SCSS files:
 
         gulp styles
         gulp scripts
