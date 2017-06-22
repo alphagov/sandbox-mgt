@@ -15,22 +15,56 @@
 <div class="column-one-whole">
 <h1 class="heading-large">Request a sandbox</h1>
 
-<p>Info info</p>
+<p>To request a sandbox, fill in this form. You must be a civil servant with an email ending in .gov.uk, and have a github account.</p>
 
-<form action="/your-name/" method="post">
-    <label for="your_name">Your email address: </label>
-    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+<form action="/request" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label class="form-label" for="email">Your email address: </label>
+      <input class="form-control" id="email" type="text" name="email" value="{{ email }}">
+    </div>
 
-    <label for="your_name">Your github user name: </label>
-    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
+    <div class="form-group">
+      <label class="form-label" for="github_username">Your github user name: </label>
+      <input class="form-control" id="github_username" type="text" name="github" value="{{ github_username }}">
+    </div>
 
-    <h3>Terms of Use</h3>
-    <p>Here are the terms</p>
+    <div class="form-group">
+      <label class="form-label" for="textarea">
+        Tell us how you plan to use your sandbox
+      </label>
+      <textarea class="form-control form-control-3-4" name="message" id="textarea" rows="5"></textarea>
+    </div>
 
-    <label for="your_name">I agree to Terms of Use: </label>
-    <input id="your_name" type="checkbox" name="your_name" value="{{ current_name }}">
+    <div class="form-group">
+      <h3 class="heading-medium">Terms of Use</h3>
+      <h4 class="heading-small">To use the data science sandbox, please review and agree to the Terms of Use</h4>
+        <ul class="list list-bullet">
+          <li>I have read the Data science ethical framework and agree that when working in the sandbox, I will be aware of its six key principles:</li>
+          <ol class="list list-number">
+            <li>Start with clear user need and public benefit.</li>
+            <li>Use data and tools which have the minimum intrusion necessary</li>
+            <li>Create robust data science models</li>
+            <li>Be alert to public perceptions</li>
+            <li>Be as open and accountable as possible</li>
+            <li>Keep data secure</li>
+          </ol>
 
-    <input type="submit" value="OK">
+          <li>I understand my responsibilities under the Government Security Classifications Policy and my organisation's policies, and will act accordingly;</li>
+          <li>I will only use publicly available open data, and will take appropriate measures to ensure that other information is not used and will report any unintended data;</li>
+          <li>I understand that this service is a trial that I have been invited to, and that I should keep my login information safe and private;</li>
+          <li>If I have any questions about the ethics or security of my work in the sandbox, I will stop and ask for help.</li>
+        </ul>
+
+      <div class="multiple-choice">
+        <input id="checkbox-terms" name="agree" type="checkbox" value="true">
+        <label for="checkbox-terms">I agree to Terms of Use</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input class="button" type="submit" value="Submit">
+    </div>
 </form>
 
 </div>
