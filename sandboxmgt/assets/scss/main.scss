@@ -65,12 +65,9 @@ $govuk-blue: #005ea5;
   }
 
 }
-.column-two-thirds {
-  padding: 0;
-}
 
-// Phase banner from product-page-example
-.phase-banner {
+// Phase banner (when shown in the black top bar) from product-page-example
+.header-logo .phase-banner {
   @include bold-14;
   padding: 2px 5px 0;
   text-transform: uppercase;
@@ -80,25 +77,6 @@ $govuk-blue: #005ea5;
   border-color: #005EA5;
 }
 
-// Masthead/hero (big blue section)
-.masthead {
-  .heading-xlarge {
-    margin: 40px 0 30px 0;
-  }
-  .login-white {
-    a:link; a:visited {
-      color: #fff;
-    }
-    a:hover {
-      color: #d5e8f3;
-    }
-  }
-}
-.masthead .inner, .contact {
-  margin: 0 auto 60px auto;
-  padding-bottom: 60px;
-  max-width: 960px;
-}
 
 // Widths of container etc. From product-page-example's _core.scss
 .container {
@@ -191,10 +169,6 @@ $govuk-blue: #005ea5;
   }
 }
 
-
-div#global-header-bar {
-  display: none;
-}
 
 #global-cookie-message p {
   max-width: 960px;
