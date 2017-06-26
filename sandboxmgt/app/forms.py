@@ -5,7 +5,7 @@ from .models import Request
 
 
 def validate_gov_email(value):
-    if value.endswith('gov.uk') is False:
+    if value.endswith('.gov.uk') is False:
         raise ValidationError(
             _('%(value)s is not a valid gov.uk email address'),
             params={'value': value},
