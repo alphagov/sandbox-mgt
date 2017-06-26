@@ -19,21 +19,44 @@
 
 <form action="/request" method="post">
     {% csrf_token %}
+
+    {% if form.errors %}
+      <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+
+        <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+          The form has errors
+        </h1>
+
+          <p>
+            {{ form.errors }}
+          <p>
+      </div>
+    {% endif %}
+
     <div class="form-group">
       <label class="form-label" for="email">Your email address: </label>
-      <input class="form-control" id="email" type="text" name="email" value="{{ email }}">
+      <span class="error-message">
+        {{ form.email.errors }}
+      </span>
+      <input class="form-control" id="email" type="text" name="email" value="{{ form.email.value|default:'' }}">
     </div>
 
     <div class="form-group">
       <label class="form-label" for="github_username">Your github user name: </label>
-      <input class="form-control" id="github_username" type="text" name="github" value="{{ github_username }}">
+      <span class="error-message">
+        {{ form.github.errors }}
+      </span>
+      <input class="form-control" id="github_username" type="text" name="github" value="{{ form.github.value|default:'' }}">
     </div>
 
     <div class="form-group">
       <label class="form-label" for="textarea">
-        Tell us how you plan to use your sandbox
+        Tell us how you plan to use your sandbox:
       </label>
-      <textarea class="form-control form-control-3-4" name="message" id="textarea" rows="5"></textarea>
+      <span class="error-message">
+        {{ form.message.errors }}
+      </span>
+      <textarea class="form-control form-control-3-4" name="message" id="textarea" rows="5">{{ form.message.value|default:'' }}</textarea>
     </div>
 
     <div class="form-group">
@@ -57,7 +80,10 @@
         </ul>
 
       <div class="multiple-choice">
-        <input id="checkbox-terms" name="agree" type="checkbox" value="true">
+        <span class="error-message">
+          {{ form.agree.errors }}
+        </span>
+        <input id="checkbox-terms" name="agree" type="checkbox" {% ifequal form.agree.value True %}checked{% endifequal %}>
         <label for="checkbox-terms">I agree to Terms of Use</label>
       </div>
     </div>
