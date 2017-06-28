@@ -13,16 +13,12 @@ def request_sandbox(request):
     if request.method == 'POST':
         form = RequestForm(request.POST)
         if form.is_valid():
-            # Save form in the database
-            #form.save()
-
             # Send form data by email
             personalisation = {
                 'email': form.cleaned_data['email'],
                 'github': form.cleaned_data['github'],
                 'message': form.cleaned_data['message']
             }
-
             notify_client = NotificationsAPIClient(settings.NOTIFY_API_KEY)
             response = notify_client.send_email_notification(
                 email_address=settings.NOTIFY_RECIPIENT_EMAIL,
@@ -30,6 +26,9 @@ def request_sandbox(request):
                 personalisation=personalisation,
                 reference=None
             )
+
+            # Save form in the database
+            form.save()
 
             # Redirect user to a thank you page
             return HttpResponseRedirect('/thanks')
