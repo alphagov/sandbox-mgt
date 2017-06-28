@@ -39,7 +39,9 @@ export NOTIFY_API_KEY=<api-key>
 export NOTIFY_EMAIL_TEMPLATE_ID=<template-id>
 export NOTIFY_RECIPIENT_EMAIL=<your-own-email-address>
 ```
-Insert the missing values. Ask around the team to obtain the NOTIFY_API_KEY that can be used for testing purposes. To find the Notify email template id, sign-in to: https://www.notifications.service.gov.uk/
+Insert the missing values.
+
+The Sandbox uses GOV.UK Notify to send emails. This requires a particular configuration to be set. NOTIFY_API_KEY and NOTIFY_EMAIL_TEMPLATE_ID cannot be obtained automatically and must be requested to one of the admins (Andrea Grandi or David Read). The NOTIFY_EMAIL_TEMPLATE_ID is also available from: https://www.notifications.service.gov.uk/
 
 To test password protection, add:
 ```
@@ -142,7 +144,8 @@ To deploy to PaaS, set-up your account first.
 
        cf login -a api.cloud.service.gov.uk -u <YOUR-EMAIL-ADDRESS>
 
-### Deploy
+
+### Deploy the app
 
 1. Make sure you 'target' (deploy to) the right 'space'. It's probably 'sandbox-dev' now but in future it may be staging or production. The 'space' is saved in your environment. You might get asked which 'space' you want to target when you log-in. Otherwise use this command:
 
@@ -157,7 +160,21 @@ To deploy to PaaS, set-up your account first.
        cf push sandbox-mgt
 
 
-## Environment variables configuration
+### Setup PostgreSQL service
+
+This has to be done only the first time you deploy the app to a space.
+NB this 'Free' type is not backed up - not for production use.
+
+```
+cf create-service postgres Free sandbox-mgt-pg
+cf service sandbox-mgt-pg  # repeat until it's been created - 5-10 minutes
+cf bind-service sandbox-mgt sandbox-mgt-pg
+cf restage sandbox-mgt
+cf service sandbox-mgt-pg  # check it says "Bound apps: sandbox-mgt"
+```
+
+
+### Environment variables configuration
 
 On deployments, since this is an alpha, the site should be password protected. This is achieved by setting environment variables.
 
@@ -176,6 +193,3 @@ cf set-env sandbox-mgt NOTIFY_EMAIL_TEMPLATE_ID <template_id>
 cf set-env sandbox-mgt NOTIFY_RECIPIENT_EMAIL <email_recipient>
 ```
 
-### Note about Notify
-
-The Sandbox uses GOV.UK Notify to send emails. This requires a particular configuration to be set. We need a valid API token, the ID of an email template and a valid email recipient. Email template and API token cannot be obtained automatically and must be requested to one of the admins (Andrea Grandi or David Read).
