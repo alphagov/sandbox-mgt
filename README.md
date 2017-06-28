@@ -7,11 +7,57 @@ Data Science Sandbox's Management web app.
 
 A dev can install this repo's code locally and run the server:
 
+### Postgres
+
+Ensure you have PostgreSQL installed (tested with 9.6) installed. You can find more information for the different operating systems here: https://docs.djangoproject.com/en/1.10/ref/contrib/gis/install/postgis/
+On OSX consider installing it with Brew or use the Postgres.app.
+
+Once PostgreSQL is installed, create the database for this app:
+```
+createdb sandbox-mgt
+```
+
+### Python setup
+
 ```
 git clone git@github.com:alphagov/sandbox-mgt.git
 mkvirtualenv sandbox-mgt
 cd sandbox-mgt/sandboxmgt
 pip install -r ../requirements.txt
+```
+
+### Environment variables
+
+Some configuration is done with environment variables. The simplest thing is to add them to your postactivate script e.g.:
+```
+vim ~/.virtualenvs/sandbox-mgt/bin/postactivate
+```
+The commands for configuring are:
+```
+export DATABASE_URL=postgres://localhost:5432/sandbox-mgt
+export NOTIFY_API_KEY=<api-key>
+export NOTIFY_EMAIL_TEMPLATE_ID=<template-id>
+export NOTIFY_RECIPIENT_EMAIL=<your-own-email-address>
+```
+Insert the missing values. Ask around the team to obtain the NOTIFY_API_KEY that can be used for testing purposes. To find the Notify email template id, sign-in to: https://www.notifications.service.gov.uk/
+
+To test password protection, add:
+```
+export HTTP_USERNAME=<your-username>
+export HTTP_PASSWORD=<your-password>
+```
+
+### Setup database
+
+```
+workon sandbox-mgt
+./manage.py migrate
+```
+
+### Run local server
+
+```
+workon sandbox-mgt
 ./manage.py runserver
 ```
 
@@ -128,15 +174,6 @@ cf set-env sandbox-mgt HTTP_PASSWORD <password>
 cf set-env sandbox-mgt NOTIFY_API_KEY <api_key>
 cf set-env sandbox-mgt NOTIFY_EMAIL_TEMPLATE_ID <template_id>
 cf set-env sandbox-mgt NOTIFY_RECIPIENT_EMAIL <email_recipient>
-```
-
-To test password protection locally:
-```
-export HTTP_USERNAME='yourusername'
-export HTTP_PASSWORD='yourpassword'
-export NOTIFY_API_KEY='api_key'
-export NOTIFY_EMAIL_TEMPLATE_ID='template_id'
-export NOTIFY_RECIPIENT_EMAIL='email_recipient'
 ```
 
 ### Note about Notify
