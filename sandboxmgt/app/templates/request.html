@@ -15,7 +15,7 @@
 <div class="column-two-thirds">
 <h1 class="heading-large">Request a sandbox</h1>
 
-<p>To request a sandbox, fill in this form. You must be a civil servant with an email ending in .gov.uk, and have a <a href="https://github.com" target="_blank"> github</a> account.</p>
+<p>To request a sandbox, fill in this form. You must work for government with an email address ending in .gov.uk, and have a <a href="https://github.com" target="_blank">GitHub</a> account.</p>
 
 <form action="/request" method="post">
     {% csrf_token %}
@@ -42,7 +42,7 @@
     </div>
 
     <div class="form-group">
-      <label class="form-label" for="github_username">Your github user name: </label>
+      <label class="form-label" for="github_username">Your GitHub user name: </label>
       <span class="error-message">
         {{ form.github.errors }}
       </span>
@@ -61,9 +61,10 @@
 
     <div class="form-group">
       <h3 class="heading-medium">Terms of Use</h3>
-      <h4 class="heading-small">To use the data science sandbox, please review and agree to the Terms of Use</h4>
+      <h4 class="heading-small">To use a Data Science Sandbox, please review and agree to the Terms of Use</h4>
         <ul class="list list-bullet">
-          <li>I have read the <a href="https://www.gov.uk/government/publications/data-science-ethical-framework" target="_blank"> Data science ethical framework</a> and agree that when working in the sandbox, I will be aware of its six key principles:</li>
+          <li>I have read the <a href="https://www.gov.uk/government/publications/data-science-ethical-framework" target="_blank">Data Science Ethical Framework
+</a> and agree that when working in the sandbox, I will be aware of its six key principles:</li>
           <ol class="list list-number">
             <li>Start with clear user need and public benefit.</li>
             <li>Use data and tools which have the minimum intrusion necessary</li>
@@ -84,7 +85,7 @@
           {{ form.agree.errors }}
         </span>
         <input id="checkbox-terms" name="agree" type="checkbox" {% ifequal form.agree.value True %}checked{% endifequal %}>
-        <label for="checkbox-terms">I agree to Terms of Use</label>
+        <label for="checkbox-terms">I agree to the Terms of Use</label>
       </div>
     </div>
 
