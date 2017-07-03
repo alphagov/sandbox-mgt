@@ -1964,6 +1964,67 @@ a.hero-button {
         font-size: 36px;
         line-height: 1.11111; } }
 
+.multiple-choice {
+  display: block;
+  float: none;
+  clear: left;
+  position: relative;
+  padding: 0 0 0 38px;
+  margin-bottom: 10px; }
+
+.multiple-choice input {
+  position: absolute;
+  cursor: pointer;
+  left: 0;
+  top: 0;
+  width: 38px;
+  height: 38px;
+  z-index: 1;
+  margin: 0;
+  zoom: 1;
+  filter: alpha(opacity=0);
+  opacity: 0; }
+
+.multiple-choice label {
+  cursor: pointer;
+  padding: 8px 10px 9px 12px;
+  display: block;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation; }
+
+@media (min-width: 641px) {
+  .multiple-choice label {
+    float: left;
+    padding-top: 7px;
+    padding-bottom: 7px; } }
+
+input[type="checkbox"]:checked + label:after {
+  transition: 150ms all cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  opacity: 1; }
+
+.multiple-choice label:before {
+  content: "";
+  border: 2px solid;
+  background: transparent;
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  top: 0;
+  left: 0; }
+
+.multiple-choice label:after {
+  content: "";
+  border: solid;
+  border-width: 0 0 5px 5px;
+  background: transparent;
+  width: 17px;
+  height: 7px;
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  transform: rotate(-45deg);
+  opacity: 0; }
+
 @media (min-width: 769px) {
   #global-header.with-proposition .header-wrapper .header-global {
     width: 31%; }
