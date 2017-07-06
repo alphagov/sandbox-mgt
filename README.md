@@ -109,21 +109,25 @@ the developer will have to recompile locally. To do this:
 
         npm install
 
-4. Clone product-page-example alongside this repo:
+4. Clone repos with CSS alongside this repo:
 
         cd ..
         git clone git@github.com:alphagov/product-page-example.git
+        git clone git@github.com:alphagov/govuk_template.git
         cd sandbox-mgt
 
-5. Use gulp to compile the SCSS files:
+5. A hack!
+
+        ln -s node_modules/govuk-elements-sass govuk_elements
+
+6. Use gulp to compile the SCSS files:
 
         gulp styles
         gulp scripts
 
    or while you develop, it can compile them as you save them:
 
-        gulp watchStyles
-        gulp watchScripts
+        gulp watchStyles watchScripts
 
 If a new version of the `govuk` packages is needed, you will have to
 copy and compile them again, and add the resulting files in this

@@ -13,8 +13,13 @@ var govuk_frontend_toolkit_root =
 var govuk_elements_sass_root =
   repo_root + 'node_modules/govuk-elements-sass/public/sass';       // 2.
 var product_page_example_scss =
+  repo_root + '../product-page-example/source/stylesheets';
+var product_page_example_modules_scss =
   repo_root + '../product-page-example/source/stylesheets/modules';
-
+var node_modules =
+  repo_root + 'node_modules';  // so _core.scss can find its govuk* dependencies
+var govuk_template_parent =
+  repo_root + '..'; // for _core.scss
 var assets = './sandboxmgt/assets';
 
 var ignoredFiles =
@@ -33,6 +38,9 @@ gulp.task('styles', function () {
       govuk_frontend_toolkit_root,
       govuk_elements_sass_root,
       product_page_example_scss,
+      product_page_example_modules_scss,
+      node_modules,
+      govuk_template_parent,
       ]}).on('error', sass.logError))
     .pipe(gulp.dest(assets + '/css'));
 });
