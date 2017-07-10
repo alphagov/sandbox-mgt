@@ -2054,6 +2054,9 @@ input[type="checkbox"]:checked + label:after {
   transform: rotate(-45deg);
   opacity: 0; }
 
+.multiple-choice [type=checkbox] + label::after {
+  border-top-style: inset; }
+
 @media (min-width: 769px) {
   #global-header.with-proposition .header-wrapper .header-global {
     width: 31%; }
