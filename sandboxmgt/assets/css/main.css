@@ -1900,7 +1900,29 @@ a.hero-button {
   #global-header.with-proposition #logo #product-name {
     font-size: 24px;
     font-weight: 400;
-    padding-left: 5px; }
+    float: left;
+    clear: left;
+    padding-top: 5px; }
+    @media (min-width: 641px) {
+      #global-header #logo #product-name,
+      #global-header.with-proposition #logo #product-name {
+        float: none;
+        clear: none;
+        padding-left: 5px; } }
+
+#global-header .govuk-logo,
+#global-header.with-proposition .govuk-logo {
+  height: 40px;
+  margin: 1px;
+  float: left; }
+  @media (min-width: 641px) {
+    #global-header .govuk-logo,
+    #global-header.with-proposition .govuk-logo {
+      float: none; } }
+
+#global-header #logo a:hover,
+#global-header.with-proposition #logo a:hover {
+  border-bottom: 1px solid #000; }
 
 @media (min-width: 769px) {
   #global-header .header-wrapper .header-global .header-logo,
@@ -1931,6 +1953,13 @@ a.hero-button {
     .header-logo .phase-banner {
       font-size: 14px;
       line-height: 1.42857; } }
+
+.hero__inline-image {
+  display: none; }
+
+.hero__body {
+  float: left;
+  width: 100%; }
 
 .button-get-started {
   padding: 0.26316em 0.84211em 0.31579em 0.84211em; }

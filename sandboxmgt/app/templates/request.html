@@ -80,10 +80,10 @@
           <li>If I have any questions about the ethics or security of my work in the sandbox, I will stop and <a href="mailto:data-science-sandbox@digital.cabinet-office@gov.uk">ask for help</a>.</li>
         </ul>
 
+      <span class="error-message"> {# this is outside the div to suit mobile #}
+        {{ form.agree.errors }}
+      </span>
       <div class="multiple-choice">
-        <span class="error-message">
-          {{ form.agree.errors }}
-        </span>
         <input id="checkbox-terms" name="agree" type="checkbox" {% ifequal form.agree.value True %}checked{% endifequal %}>
         <label for="checkbox-terms">I agree to the Terms of Use</label>
       </div>

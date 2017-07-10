@@ -35,9 +35,28 @@ $govuk-blue: #005ea5;
     #product-name {
       font-size: 24px;
       font-weight: 400;
-      padding-left: 5px;
+      float: left;
+      clear: left;
+      padding-top: 5px;
+      @media (min-width: 641px) {
+        float: none;
+        clear: none;
+        padding-left: 5px;
+      }
     }
 
+  }
+  .govuk-logo {
+    height: 40px;
+    margin: 1px;
+    float: left;
+    @media (min-width: 641px) {
+        float: none;
+    }
+  }
+
+  #logo a:hover {
+    border-bottom: 1px solid #000;
   }
 
   .header-wrapper {
@@ -77,6 +96,14 @@ $govuk-blue: #005ea5;
   border-color: #005EA5;
 }
 
+// Hero without a picture
+.hero__inline-image {
+  display: none;
+}
+.hero__body {
+    float: left;
+    width: 100%;
+}
 
 // Widths of container etc. From product-page-example's _core.scss
 .container {
