@@ -207,6 +207,10 @@ input[type="checkbox"]:checked + label:after {
   transform: rotate(-45deg);
   opacity: 0;
 }
+// IE8-11 hairline fix
+.multiple-choice [type=checkbox] + label::after {
+  border-top-style: inset;
+}
 
 // BITS INHERITED FROM DGU
 
