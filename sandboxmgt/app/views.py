@@ -15,6 +15,7 @@ def request_sandbox(request):
         if form.is_valid():
             # Send form data by email
             personalisation = {
+                'name': form.cleaned_data['name'],
                 'email': form.cleaned_data['email'],
                 'github': form.cleaned_data['github'],
                 'message': form.cleaned_data['message']

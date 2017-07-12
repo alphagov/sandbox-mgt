@@ -20,6 +20,7 @@ class RequestForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(RequestForm, self).__init__(*args, **kwargs)
 
+        self.fields['name'].required = True
         # required = True will check if the box is checked, because data will
         # only be submitted if it is checked.
         self.fields['agree'].required = True
