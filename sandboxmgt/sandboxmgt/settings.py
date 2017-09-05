@@ -66,6 +66,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'sandboxmgt.context_processors.govuk_overrides',
+                'auth0_auth.context_processors.auth0',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -105,6 +106,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Auth0
+AUTHENTICATION_BACKENDS = (
+    'auth0_auth.backends.Auth0Backend',
+)
+AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
+AUTH0_CLIENT_ID = os.environ['AUTH0_CLIENT_ID']
+AUTH0_CLIENT_SECRET = os.environ['AUTH0_CLIENT_SECRET']
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
