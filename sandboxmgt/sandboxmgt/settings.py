@@ -25,7 +25,7 @@ PROJECT_DIR = os.path.dirname(BASE_DIR)
 SECRET_KEY = 'e_s2b*v98d1fa3(*=6n)9!3&&3v=_*3nwt4aa3@9$7af8-ne22'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('SANDBOX_MGT_DEBUG', False)
 
 ALLOWED_HOSTS = ['*']
 
