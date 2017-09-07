@@ -1,4 +1,4 @@
-Django==1.11.2
+Django==1.11.5
 whitenoise==3.3.0  # manages static assets
 waitress==0.8.9  # a pure python WSGI server that is a replacement for gunicorn
 notifications-python-client==4.3.1
