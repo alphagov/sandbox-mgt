@@ -1,0 +1,41 @@
+{% load static %}
+{% load i18n %}
+
+{% url 'new_dataset' as new %}
+{% url 'manage_my_data' as manage %}
+{% url 'my_tasks' as my_tasks %}
+{% url 'organisation_tasks' as org_tasks %}
+
+<div class="header-proposition">
+  <div class="content">
+    <a href="#proposition-links" class="js-header-toggle menu">Menu</a>
+    <nav id="proposition-menu">
+      <ul id="proposition-links">
+        <li>
+          <a
+              href="{{ my_tasks }}"
+              class="{% if request.path == my_tasks or request.path == org_tasks %}bold{% endif %}">
+            {% trans "Tasks" %}
+          </a>
+        </li>
+        <li>
+          <a
+              class="{% if request.path == manage %}bold{% endif %}"
+              href="{{ manage }}">
+            {% trans "Manage datasets" %}
+          </a>
+        </li>
+        <li>
+          <a
+              class="{% if request.path == performance %}bold{% endif %}"
+              href="#">
+            {% trans "Performance" %}
+          </a>
+        </li>
+        <li>
+          <a href="/auth0/sign-out">{% trans "Sign out" %}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
