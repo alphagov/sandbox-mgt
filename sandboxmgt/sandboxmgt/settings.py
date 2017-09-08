@@ -116,6 +116,7 @@ AUTH0_CLIENT_ID = os.environ['AUTH0_CLIENT_ID']
 AUTH0_CLIENT_SECRET = os.environ['AUTH0_CLIENT_SECRET']
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = '/'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
