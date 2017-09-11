@@ -38,3 +38,7 @@ def request_sandbox(request):
         form = RequestForm()
 
     return render(request, 'request.html', {'form': form})
+
+
+def my_sandbox(request):
+    return render(request, 'my_sandbox.html')

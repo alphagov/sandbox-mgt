@@ -15,12 +15,18 @@
           <p class="hero__description">
             Try a Data Science Sandbox if you work for a UK government department or agency.
           </p>
-          <a href="/request" role="button" class="hero-button">
-            Request a sandbox
-          </a>
-          <span class="hero-alternative-action">
-            or <a href="javascript:window.signin();">sign in</a> if you already have one
-          </span>
+
+          {% if user and user.is_authenticated %}
+            <a href="{% url 'my_sandbox' %}" role="button" class="hero-button">My sandbox</a>
+            </a>
+          {% else %}
+            <a href="{% url 'request_sandbox' %}" role="button" class="hero-button">
+              Request a sandbox
+            </a>
+            <span class="hero-alternative-action">
+              or <a href="{% url 'auth0_login' %}">sign in</a> if you already have one
+            </span>
+          {% endif %}
         </div>
         <!--
         <div c="hero__aside-image">
