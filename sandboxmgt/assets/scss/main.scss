@@ -113,6 +113,13 @@ $govuk-blue: #005ea5;
 }
 
 
+// Nav bar
+
+// hack
+nav#navigation.header__navigation {
+  padding-right: 15px
+}
+
 // Start now buttons, as per Notify
 .button-get-started {
   padding: em(5) em(16) em(6) em(16);

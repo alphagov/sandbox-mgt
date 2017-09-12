@@ -2161,6 +2161,9 @@ a.hero-button {
   float: left;
   width: 100%; }
 
+nav#navigation.header__navigation {
+  padding-right: 15px; }
+
 .button-get-started {
   padding: 0.26316em 0.84211em 0.31579em 0.84211em; }
 

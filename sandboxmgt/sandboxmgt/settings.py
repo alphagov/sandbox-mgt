@@ -118,6 +118,9 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = '/'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+# Django auth
+LOGIN_URL = '/auth0/sign-in'
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 

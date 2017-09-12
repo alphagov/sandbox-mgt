@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.conf import settings
+from django.contrib.auth.decorators import user_passes_test
+
 from notifications_python_client.notifications import NotificationsAPIClient
 from .forms import RequestForm
 
@@ -40,5 +42,13 @@ def request_sandbox(request):
     return render(request, 'request.html', {'form': form})
 
 
+def user_is_admin(user):
+    return user.groups.filter(name='admin').exists()
+
+@user_passes_test(user_is_admin)
 def my_sandbox(request):
     return render(request, 'my_sandbox.html')
+
+@user_passes_test(user_is_admin)
+def sandboxes(request):
+    return render(request, 'sandboxes.html')

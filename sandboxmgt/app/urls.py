@@ -26,4 +26,5 @@ urlpatterns = [
         template_name='thanks.html'), name='thanks'),
     url(r'^request$', views.request_sandbox, name='request_sandbox'),
     url(r'^my-sandbox$', views.my_sandbox, name='my_sandbox'),
+    url(r'^sandboxes$', views.sandboxes, name='sandboxes'),
 ]
