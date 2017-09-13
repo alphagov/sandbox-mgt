@@ -121,6 +121,12 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Django auth
 LOGIN_URL = '/auth0/sign-in'
 
+# sandbox-deploy
+SANDBOX_DEPLOY_URL = os.environ.get('SANDBOX_DEPLOY_URL') or \
+    'http://localhost:7000/api/sandboxes'
+SANDBOX_DEPLOY_USERNAME = os.environ.get('SANDBOX_DEPLOY_USERNAME')
+SANDBOX_DEPLOY_PASSWORD = os.environ.get('SANDBOX_DEPLOY_PASSWORD')
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 

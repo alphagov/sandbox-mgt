@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 
@@ -53,6 +53,15 @@ def my_sandbox(request):
 
 @user_passes_test(user_is_admin)
 def sandboxes(request):
-    response = requests.get('http://localhost:7000/api/sandboxes')
+    kwargs = {}
+    if settings.SANDBOX_DEPLOY_USERNAME:
+        kwargs['auth'] = (settings.SANDBOX_DEPLOY_USERNAME,
+                          settings.SANDBOX_DEPLOY_PASSWORD)
+    try:
+        response = requests.get(settings.SANDBOX_DEPLOY_URL,
+                                **kwargs)
+        response.raise_for_status()
+    except Exception as e:
+        return HttpResponse(str(e), status=500)
     sandboxes = response.json()
     return render(request, 'sandboxes.html', {'sandboxes': sandboxes})
