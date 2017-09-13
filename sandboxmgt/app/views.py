@@ -3,7 +3,9 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 
+import requests
 from notifications_python_client.notifications import NotificationsAPIClient
+
 from .forms import RequestForm
 
 
@@ -51,4 +53,6 @@ def my_sandbox(request):
 
 @user_passes_test(user_is_admin)
 def sandboxes(request):
-    return render(request, 'sandboxes.html')
+    response = requests.get('http://localhost:7000/api/sandboxes')
+    sandboxes = response.json()
+    return render(request, 'sandboxes.html', {'sandboxes': sandboxes})

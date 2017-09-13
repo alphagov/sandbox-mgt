@@ -1777,7 +1777,7 @@ a.hero-button {
   -webkit-box-shadow: 0 2px 0 #004172;
   -moz-box-shadow: 0 2px 0 #004172;
   box-shadow: 0 2px 0 #004172;
-  background-image: url("/static/images//images/hero-button/arrow.png");
+  background-image: url("/static/images/images/hero-button/arrow.png");
   background-size: 20px;
   background-repeat: no-repeat;
   background-position: 95% 50%;
@@ -1826,7 +1826,7 @@ a.hero-button {
       line-height: 1.25; } }
   @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 20 / 10), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     a.hero-button {
-      background-image: url("/static/images//images/hero-button/arrow@2x.png"); } }
+      background-image: url("/static/images/images/hero-button/arrow@2x.png"); } }
   @media (min-width: 641px) {
     a.hero-button {
       display: inline-block;
