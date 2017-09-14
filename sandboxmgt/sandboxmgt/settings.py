@@ -123,7 +123,7 @@ LOGIN_URL = '/auth0/sign-in'
 
 # sandbox-deploy
 SANDBOX_DEPLOY_URL = os.environ.get('SANDBOX_DEPLOY_URL') or \
-    'http://localhost:7000/api/sandboxes'
+    'http://localhost:7000/'
 SANDBOX_DEPLOY_USERNAME = os.environ.get('SANDBOX_DEPLOY_USERNAME')
 SANDBOX_DEPLOY_PASSWORD = os.environ.get('SANDBOX_DEPLOY_PASSWORD')
 

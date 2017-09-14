@@ -58,7 +58,7 @@ def sandboxes(request):
         kwargs['auth'] = (settings.SANDBOX_DEPLOY_USERNAME,
                           settings.SANDBOX_DEPLOY_PASSWORD)
     try:
-        response = requests.get(settings.SANDBOX_DEPLOY_URL,
+        response = requests.get(settings.SANDBOX_DEPLOY_URL + 'api/sandboxes',
                                 **kwargs)
         response.raise_for_status()
     except Exception as e:
