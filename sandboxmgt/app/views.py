@@ -58,10 +58,10 @@ def sandboxes(request):
         kwargs['auth'] = (settings.SANDBOX_DEPLOY_USERNAME,
                           settings.SANDBOX_DEPLOY_PASSWORD)
     try:
-        response = requests.get(settings.SANDBOX_DEPLOY_URL + 'api/sandboxes',
+        response = requests.get(settings.SANDBOX_DEPLOY_URL + 'api/pod-statuses',
                                 **kwargs)
         response.raise_for_status()
     except Exception as e:
         return HttpResponse(str(e), status=500)
     sandboxes = response.json()
-    return render(request, 'sandboxes.html', {'sandboxes': sandboxes})
+    return render(request, 'pod_statuses.html', {'sandboxes': sandboxes})

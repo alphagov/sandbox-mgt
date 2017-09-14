@@ -1,0 +1,13 @@
+.tick-cross-tick, .tick-cross-cross {
+  display: inline-block;
+  background-size: 19px 19px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  padding: 1px 0 0 25px; }
+
+.tick-cross-tick {
+  background-image: file-url("tick.png"); }
+
+.tick-cross-cross {
+  color: #6f777b;
+  background-image: file-url("cross-grey.png"); }
