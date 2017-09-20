@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block inner_content %}
+<main id="main" role="main" tabindex="-1">
+
+  <div class="container">
+    <section class="content-section">
+      {% blocktrans %}
+        <h2 class="content-section__title">My sandbox</h2>
+        <p class="content-section__body">
+         Placeholder
+        </p>
+      {% endblocktrans %}
+    </section>
+  </div>
+
+</main>
+{% endblock %}

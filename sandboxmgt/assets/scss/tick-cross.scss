@@ -1,0 +1,66 @@
+// copied from notify-notifications-admin repo
+
+%tick-cross {
+
+  //@include core-19;
+  display: inline-block;
+  background-size: 19px 19px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  padding: 1px 0 0 25px;
+
+  // @include ie-lte(8) {
+  //   background-position: 0 3px;
+  // }
+
+}
+
+.tick-cross {
+
+  &-tick {
+
+    @extend %tick-cross;
+    background-image: file-url('tick.png');
+
+    // @include ie-lte(8) {
+    //   background-image: file-url('tick-16px.png');
+    // }
+
+  }
+
+  &-cross {
+
+    @extend %tick-cross;
+    color: #6f777b;
+    background-image: file-url('cross-grey.png');
+
+    // @include ie-lte(8) {
+    //   background-image: file-url('cross-grey-16px.png');
+    // }
+
+  }
+
+  // &-list {
+
+  //   @extend %grid-row;
+  //   margin-top: 5px;
+
+  //   &-permissions {
+
+  //     @include grid-column(3/4);
+
+  //     li {
+  //       display: inline-block;
+  //       margin-right: 0.5em;
+  //     }
+
+  //   }
+
+  //   &-edit-link {
+  //     @include grid-column(1/4);
+  //     text-align: right;
+  //   }
+
+  // }
+
+}

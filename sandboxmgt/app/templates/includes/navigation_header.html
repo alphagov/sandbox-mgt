@@ -1,0 +1,36 @@
+{% load auth %}
+
+{% url 'home' as home %}
+{% url 'request_sandbox' as request_path %}
+{% url 'my_sandbox' as my_sandbox %}
+{% url 'sandboxes' as sandboxes %}
+{% url 'auth0_login' as signin %}
+{% url 'auth0_logout' as signout %}
+
+<div data-module="navigation">
+  <button type="button" class="header__navigation-toggle js-nav-toggle" aria-controls="navigation" aria-label="Show or hide top level navigation">
+    Menu
+  </button>
+  <nav id="navigation" class="header__navigation" aria-label="Top Level Navigation" aria-hidden="true">
+    <ul>
+      <li class="{% if request.path == home %}active{% endif %}"><a href="{{ home }}">About</a></li>
+      {% if user and user.is_authenticated %}
+        <!--<li class="{% if request.path == my_sandbox %}active{% endif %}"><a href="{{ my_sandbox }}">My sandbox</a></li>-->
+      {% endif %}
+      <li class="{% if request.path == request_path %}active{% endif %}"><a href="{{ request_path }}">Request</a></li>
+      <li><a href="https://sandbox-docs.cloudapps.digital/">Documentation</a></li>
+      {% if user and user.is_authenticated and user|is_admin %}
+        <li class="{% if request.path == sandboxes %}active{% endif %}"><a href="{{ sandboxes }}">Sandboxes</a></li>
+      {% else %}
+      <li><a href="mailto:data-science-sandbox@digital.cabinet-office.gov.uk">Support</a></li>
+      {% endif %}
+      {% if user and user.is_authenticated %}
+        <li><a href="{{ signout }}">Sign out</a></li>
+      {% else %}
+        {# There are two ways to sign-in with Authz0 - the more GDS way is to use a proper link, rather than just JS overlay. #}
+        <!-- <li><a href="javascript:window.signin();">Sign in</a></li> -->
+        <li><a href="{{ signin }}">Sign in</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>

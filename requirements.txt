@@ -4,3 +4,7 @@ waitress==0.8.9  # a pure python WSGI server that is a replacement for gunicorn
 notifications-python-client==4.3.1
 psycopg2==2.7.1
 dj-database-url==0.4.2
+-e git+https://github.com/ukgovdatascience/django-auth0-auth#egg=django-auth0-auth
+auth0-python==3.1.2  # from django-authz0-auth
+requests==2.18.1  # from django-authz0-auth
+PyJWT==1.5.0  # from django-authz0-auth

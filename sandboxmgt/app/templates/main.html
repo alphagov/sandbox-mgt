@@ -12,9 +12,8 @@
 {% block header_class %}with-proposition{% endblock %}
 
 {% block proposition_header %}
-  {% if user and user.is_authenticated %}
-    {% include 'includes/proposition_header.html' %}
-  {% endif %}
+  {# proposition = navigation menu #}
+  {% include 'includes/navigation_header.html' %}
 {% endblock %}
 
 

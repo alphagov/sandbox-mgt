@@ -38,10 +38,19 @@ export DATABASE_URL=postgres://localhost:5432/sandbox-mgt
 export NOTIFY_API_KEY=<api-key>
 export NOTIFY_EMAIL_TEMPLATE_ID=<template-id>
 export NOTIFY_RECIPIENT_EMAIL=<your-own-email-address>
+export AUTH0_DOMAIN=gds-sandbox.eu.auth0.com
+export AUTH0_CLIENT_ID=<client-id>
+export AUTH0_CLIENT_SECRET=<password>
+export SANDBOX_DEPLOY_URL=http://localhost:7000/
 ```
-Insert the missing values.
 
-The Sandbox uses GOV.UK Notify to send emails. This requires a particular configuration to be set. NOTIFY_API_KEY and NOTIFY_EMAIL_TEMPLATE_ID cannot be obtained automatically and must be requested to one of the admins (Andrea Grandi or David Read). The NOTIFY_EMAIL_TEMPLATE_ID is also available from: https://www.notifications.service.gov.uk/
+Ask around the team to get these secrets.
+
+On a development box, add:
+```
+export SANDBOX_MGT_DEBUG=True
+```
+otherwise the assets will not be served.
 
 To test password protection, add:
 ```
@@ -136,9 +145,9 @@ GOV.UK PaaS docs are here: https://docs.cloud.service.gov.uk/
 
 To deploy to PaaS, set-up your account first.
 
-### Set-up your account
+### Set-up your PaaS account
 
-1. Get permissions. Dan needs to request the PaaS team adds you to the 'gds-data-science' org. Then Dan or sandbox team need to add you to the 'sandbox-dev' space.
+1. Get PaaS permissions. Dan needs to request the PaaS team adds you to the 'gds-data-science' org. Then Dan or sandbox team need to add you to the 'sandbox-dev' space.
 
 2. Login:
 
@@ -191,5 +200,65 @@ cf set-env sandbox-mgt HTTP_PASSWORD <password>
 cf set-env sandbox-mgt NOTIFY_API_KEY <api_key>
 cf set-env sandbox-mgt NOTIFY_EMAIL_TEMPLATE_ID <template_id>
 cf set-env sandbox-mgt NOTIFY_RECIPIENT_EMAIL <email_recipient>
+cf set-env sandbox-mgt AUTH0_DOMAIN gds-sandbox.eu.auth0.com
+cf set-env sandbox-mgt AUTH0_CLIENT_ID <client-id>
+cf set-env sandbox-mgt AUTH0_CLIENT_SECRET <secret>
+cf set-env sandbox-mgt SANDBOX_DEPLOY_URL https://deploy.sandbox.data-science.org.uk/
+cf set-env sandbox-mgt SANDBOX_DEPLOY_USERNAME <username>
+cf set-env sandbox-mgt SANDBOX_DEPLOY_PASSWORD <password>
 ```
 
+### Admin users
+
+This is how to make an 'admin' user in the sandbox-mgt web interface. They need to have logged into the web interface (i.e. with their GitHub account) already.
+
+ssh into the box:
+```
+cf ssh sandbox-mgt
+```
+
+Activate the virtual environment:
+```
+export DEPS_DIR=/home/vcap/deps
+for f in /home/vcap/app/.profile.d/*.sh; do source $f; done
+```
+
+Run the Django shell:
+```
+cd /home/vcap/app/sandboxmgt/
+python manage.py shell
+```
+
+Find the user (here we use the email attached to the Github account) and give them staff & superuser permissions:
+```
+from django.contrib.auth.models import User
+user = User.objects.get(email='david.read@hackneyworkshop.com')
+user.is_staff = True
+user.is_superuser = True
+user.save()
+```
+
+* is_staff - whether can access the admin site
+* is_superuser - needed to edit users
+
+Now login to: https://sandbox-mgt.cloudapps.digital/admin/
+* Create a group 'admin'
+* Edit the user in question and add them to group 'admin'
+
+They should now see the admin version of the nav menu.
+
+
+## Auth0 account
+
+Access to Auth0's gds-sandbox account is authorized by Dan
+
+Log-in to https://manage.auth0.com/#/ via your google account.
+
+Click on Client 'gds-sandbox' to see the settings for sandbox-mgt.
+
+
+## Notify account
+
+The Sandbox uses GOV.UK Notify to send emails: https://www.notifications.service.gov.uk/ .
+
+Note that the NOTIFY_API_KEY cannot be obtained from the site and must be requested to one of the admins (Andrea Grandi or David Read).

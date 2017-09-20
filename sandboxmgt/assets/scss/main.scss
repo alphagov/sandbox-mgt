@@ -18,6 +18,9 @@ $govuk-blue: #005ea5;
 @import 'hero-button';
 @import 'hero-alternative-action';
 @import 'content-section';
+@import 'util/printable';  // for 'screen' mixin
+@import 'header';
+@import 'tick-cross';
 
 // ------------------
 // govuk-* overrides
@@ -110,6 +113,13 @@ $govuk-blue: #005ea5;
   @extend %site-width-container;
 }
 
+
+// Nav bar
+
+// hack
+nav#navigation.header__navigation {
+  padding-right: 15px
+}
 
 // Start now buttons, as per Notify
 .button-get-started {

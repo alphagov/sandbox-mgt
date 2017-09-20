@@ -67,6 +67,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'sandboxmgt.context_processors.govuk_overrides',
+                'auth0_auth.context_processors.auth0',
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -106,6 +107,25 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Auth0
+AUTHENTICATION_BACKENDS = (
+    'auth0_auth.backends.Auth0Backend',
+)
+AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
+AUTH0_CLIENT_ID = os.environ['AUTH0_CLIENT_ID']
+AUTH0_CLIENT_SECRET = os.environ['AUTH0_CLIENT_SECRET']
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_URL = '/'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Django auth
+LOGIN_URL = '/auth0/sign-in'
+
+# sandbox-deploy
+SANDBOX_DEPLOY_URL = os.environ.get('SANDBOX_DEPLOY_URL') or \
+    'http://localhost:7000/'
+SANDBOX_DEPLOY_USERNAME = os.environ.get('SANDBOX_DEPLOY_USERNAME')
+SANDBOX_DEPLOY_PASSWORD = os.environ.get('SANDBOX_DEPLOY_PASSWORD')
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -143,3 +163,20 @@ LOGO_LINK_TITLE = 'Go to the GOV.UK homepage'
 NOTIFY_EMAIL_TEMPLATE_ID = os.environ.get('NOTIFY_EMAIL_TEMPLATE_ID')
 NOTIFY_API_KEY = os.environ.get('NOTIFY_API_KEY')
 NOTIFY_RECIPIENT_EMAIL = os.environ.get('NOTIFY_RECIPIENT_EMAIL')
+
+# logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+    },
+}

@@ -33,6 +33,7 @@ gulp.task('styles', function () {
       govuk_frontend_toolkit_root,
       govuk_elements_sass_root,
       product_page_example_scss,
+      repo_root + '../product-page-example/source/stylesheets',
       ]}).on('error', sass.logError))
     .pipe(gulp.dest(assets + '/css'));
 });
