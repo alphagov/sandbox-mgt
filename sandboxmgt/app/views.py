@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import login_required
 
 import requests
 from notifications_python_client.notifications import NotificationsAPIClient
@@ -47,7 +48,7 @@ def request_sandbox(request):
 def user_is_admin(user):
     return user.groups.filter(name='admin').exists()
 
-@user_passes_test(user_is_admin)
+@login_required
 def my_sandbox(request):
     return render(request, 'my_sandbox.html')
 
