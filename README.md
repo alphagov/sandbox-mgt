@@ -42,6 +42,7 @@ export AUTH0_DOMAIN=gds-sandbox.eu.auth0.com
 export AUTH0_CLIENT_ID=<client-id>
 export AUTH0_CLIENT_SECRET=<password>
 export SANDBOX_DEPLOY_URL=http://localhost:7000/
+export SECRET_KEY='abcd1234'
 ```
 
 Ask around the team to get these secrets.
