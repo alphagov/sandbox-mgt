@@ -207,6 +207,7 @@ cf set-env sandbox-mgt AUTH0_CLIENT_SECRET <secret>
 cf set-env sandbox-mgt SANDBOX_DEPLOY_URL https://deploy.sandbox.data-science.org.uk/
 cf set-env sandbox-mgt SANDBOX_DEPLOY_USERNAME <username>
 cf set-env sandbox-mgt SANDBOX_DEPLOY_PASSWORD <password>
+cf set-env sandbox-mgt SECRET_KEY <secret_key>
 ```
 
 ### Admin users
