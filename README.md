@@ -42,6 +42,7 @@ export AUTH0_DOMAIN=gds-sandbox.eu.auth0.com
 export AUTH0_CLIENT_ID=<client-id>
 export AUTH0_CLIENT_SECRET=<password>
 export SANDBOX_DEPLOY_URL=http://localhost:7000/
+export SECRET_KEY='abcd1234'
 ```
 
 Ask around the team to get these secrets.
@@ -206,6 +207,7 @@ cf set-env sandbox-mgt AUTH0_CLIENT_SECRET <secret>
 cf set-env sandbox-mgt SANDBOX_DEPLOY_URL https://deploy.sandbox.data-science.org.uk/
 cf set-env sandbox-mgt SANDBOX_DEPLOY_USERNAME <username>
 cf set-env sandbox-mgt SANDBOX_DEPLOY_PASSWORD <password>
+cf set-env sandbox-mgt SECRET_KEY <secret_key>
 ```
 
 ### Admin users

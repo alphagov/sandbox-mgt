@@ -22,7 +22,7 @@ PROJECT_DIR = os.path.dirname(BASE_DIR)
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'e_s2b*v98d1fa3(*=6n)9!3&&3v=_*3nwt4aa3@9$7af8-ne22'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('SANDBOX_MGT_DEBUG', '').lower() == 'true'
