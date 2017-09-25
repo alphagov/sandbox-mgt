@@ -7,12 +7,14 @@
 
   <div class="container">
     <section class="content-section">
-      {% blocktrans %}
-        <h2 class="content-section__title">My sandbox</h2>
-        <p class="content-section__body">
-         Placeholder
-        </p>
-      {% endblocktrans %}
+      <h2 class="content-section__title">My sandbox</h2>
+      <p class="content-section__body">
+        {% if user and user.is_authenticated %}
+          <a href="https://{{ user.username }}-rstudio.tools.sandbox.data-science.org.uk">
+            Open My Sandbox
+          </a>
+        {% endif %}
+      </p>
     </section>
   </div>
 
