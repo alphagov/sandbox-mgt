@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block inner_content %}
+<div id="content">
+  <main role="main">
+    <div class="grid-row contact">
+      <div class="column-two-thirds">
+
+        <h1 class="heading-large">Request submitted</h1>
+
+        <p>Thank you for requesting a Data Science Sandbox. It should take a couple of minutes to deploy.</p>
+
+        <!--<p>Deploying: {{ app }}</p>-->
+        <p>
+          Phase: <span id="status">{{ pod_status.phase }}</span>
+        </p>
+        <p>
+          Status:
+          <span id="status">
+            {{ pod_status.status }}<br>
+            {{ pod_status.messages }}
+          </span>
+        </p>
+
+        {# hack to make it refresh the page to see if it's done #}
+        <meta http-equiv="refresh" content="5" >
+
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}

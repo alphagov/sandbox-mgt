@@ -36,6 +36,15 @@ def request_sandbox(request):
             # Save form in the database
             form.save()
 
+            # Save the deploy info in the session - the user is probably not
+            # logged in, but it needs storing for the next page, where feedback
+            # is given on the deployment.
+            request.session['github'] = form.cleaned_data['github']
+            request.session['name'] = form.cleaned_data['name']
+            # hard code the app for now
+            request.session['app'] = 'rstudio'
+            request.session.save()
+
             # Start the deploy
             data = dict(
                 name=form.cleaned_data['name'],
@@ -48,7 +57,7 @@ def request_sandbox(request):
                 return HttpResponse(str(e), status=500)
 
             # Redirect user to the deploy waiting/updates page
-            return HttpResponseRedirect('/deploy/rstudio')
+            return HttpResponseRedirect('/deploy')
 
     else:
         form = RequestForm()
@@ -63,7 +72,13 @@ def user_is_admin(user):
 def my_sandbox(request):
     return render(request, 'my_sandbox.html')
 
-def deploy(request, app):
+def deploy(request):
+    try:
+        github = request.session['github']
+        app = request.session['app']
+    except KeyError:
+        return HttpResponse('Could not get details of the request. Has your '
+                            'browser got cookies enabled?', status=400)
     # find out the status of the deploy
     try:
         response = send_request_to_deploy_box('api/pod-statuses')
@@ -79,13 +94,16 @@ def deploy(request, app):
     #   'user': '<github-username>'},
     filtered_pods = [
         pod for pod in pods
-        if pod['app'] == app and pod['user'] == 'davidread']
+        if pod['app'] == app and pod['user'] == github]
     # TODO get the correct user
     if not filtered_pods:
         pod = {'phase': 'Not started yet', 'status': '', 'messages': ''}
     else:
         pod = filtered_pods[0]
-    return render(request, 'deploy.html', dict(app=app, pod_status=pod))
+    if pod['status'] != 'Ready':
+        return render(request, 'deploying.html', dict(app=app, pod_status=pod))
+    else:
+        return render(request, 'deployed.html', dict(app=app, pod_status=pod))
 
 @user_passes_test(user_is_admin)
 def sandboxes(request):

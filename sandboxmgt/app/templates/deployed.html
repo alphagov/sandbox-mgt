@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block inner_content %}
+<div id="content">
+  <main role="main">
+    <div class="grid-row contact">
+      <div class="column-two-thirds">
+
+        <h1 class="heading-large">Sandbox ready</h1>
+
+        <p>Your Data Science Sandbox is now ready to access.</p>
+
+        <p>
+              Open your deployed tool:
+              <a href="https://{{ pod_status.user }}-rstudio.tools.sandbox.data-science.org.uk" target="_blank">
+                {{ app }}
+              </a>
+        </p>
+
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}
