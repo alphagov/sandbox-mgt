@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^request$', views.request_sandbox, name='request_sandbox'),
     url(r'^my-sandbox$', views.my_sandbox, name='my_sandbox'),
     url(r'^sandboxes$', views.sandboxes, name='sandboxes'),
+    url(r'^deploy$', views.deploy, name='deploy'),
 ]

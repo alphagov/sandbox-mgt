@@ -36,8 +36,28 @@ def request_sandbox(request):
             # Save form in the database
             form.save()
 
-            # Redirect user to a thank you page
-            return HttpResponseRedirect('/thanks')
+            # Save the deploy info in the session - the user is probably not
+            # logged in, but it needs storing for the next page, where feedback
+            # is given on the deployment.
+            request.session['github'] = form.cleaned_data['github']
+            request.session['name'] = form.cleaned_data['name']
+            # hard code the app for now
+            request.session['app'] = 'rstudio'
+            request.session.save()
+
+            # Start the deploy
+            data = dict(
+                name=form.cleaned_data['name'],
+                github=form.cleaned_data['github'],
+                email=form.cleaned_data['email'],
+                )
+            try:
+                send_request_to_deploy_box('api/deploy', post_json_data=data)
+            except requests.RequestException as e:
+                return HttpResponse(str(e), status=500)
+
+            # Redirect user to the deploy waiting/updates page
+            return HttpResponseRedirect('/deploy')
 
     else:
         form = RequestForm()
@@ -52,17 +72,60 @@ def user_is_admin(user):
 def my_sandbox(request):
     return render(request, 'my_sandbox.html')
 
+def deploy(request):
+    try:
+        github = request.session['github']
+        app = request.session['app']
+    except KeyError:
+        return HttpResponse('Could not get details of the request. Has your '
+                            'browser got cookies enabled?', status=400)
+    # find out the status of the deploy
+    try:
+        response = send_request_to_deploy_box('api/pod-statuses')
+    except requests.RequestException as e:
+        return HttpResponse(str(e), status=500)
+    pods = response.json()
+    # e.g.
+    # [{'app': 'rstudio',
+    #   'error': False,
+    #   'messages': '',
+    #   'phase': 'Running',
+    #   'status': 'Ready',
+    #   'user': '<github-username>'},
+    filtered_pods = [
+        pod for pod in pods
+        if pod['app'] == app and pod['user'] == github]
+    # TODO get the correct user
+    if not filtered_pods:
+        pod = {'phase': 'Not started yet', 'status': '', 'messages': ''}
+    else:
+        pod = filtered_pods[0]
+    if pod['status'] != 'Ready':
+        return render(request, 'deploying.html', dict(app=app, pod_status=pod))
+    else:
+        return render(request, 'deployed.html', dict(app=app, pod_status=pod))
+
 @user_passes_test(user_is_admin)
 def sandboxes(request):
-    kwargs = {}
-    if settings.SANDBOX_DEPLOY_USERNAME:
-        kwargs['auth'] = (settings.SANDBOX_DEPLOY_USERNAME,
-                          settings.SANDBOX_DEPLOY_PASSWORD)
     try:
-        response = requests.get(settings.SANDBOX_DEPLOY_URL + 'api/pod-statuses',
-                                **kwargs)
-        response.raise_for_status()
-    except Exception as e:
+        response = send_request_to_deploy_box('api/pod-statuses')
+    except requests.RequestException as e:
         return HttpResponse(str(e), status=500)
     sandboxes = response.json()
     return render(request, 'pod_statuses.html', {'sandboxes': sandboxes})
+
+def send_request_to_deploy_box(url_path, post_json_data=None, kwargs=None):
+    '''
+    May raise requests.RequestException
+    '''
+    kwargs = kwargs or {}
+    if settings.SANDBOX_DEPLOY_USERNAME:
+        kwargs['auth'] = (settings.SANDBOX_DEPLOY_USERNAME,
+                          settings.SANDBOX_DEPLOY_PASSWORD)
+    url = settings.SANDBOX_DEPLOY_URL + url_path
+    if not post_json_data:
+        response = requests.get(url, **kwargs)
+    else:
+        response = requests.post(url, json=post_json_data, **kwargs)
+    response.raise_for_status()
+    return response
