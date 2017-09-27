@@ -13,6 +13,15 @@ def validate_gov_email(value):
             params={'value': value},
         )
 
+def validate_email(value):
+    # guard against errors like commas: john,smith@...
+    # which screw up the helm command later on
+    if not re.match('^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$', value):
+        raise ValidationError(
+            _('%(value)s is not a valid email address'),
+            params={'value': value},
+            )
+
 def validate_github(value):
     # According to the form validation messages on Join Github page,
     # Github username may only contain alphanumeric characters or hyphens.
@@ -37,7 +46,8 @@ class RequestForm(forms.ModelForm):
         # required = True will check if the box is checked, because data will
         # only be submitted if it is checked.
         self.fields['agree'].required = True
-        self.fields['email'].validators.append(validate_gov_email)
+        self.fields['email'].validators.extend([validate_email,
+                                                validate_gov_email])
         self.fields['github'].validators.append(validate_github)
 
 
