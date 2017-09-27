@@ -1,3 +1,5 @@
+import re
+
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
@@ -9,6 +11,17 @@ def validate_gov_email(value):
         raise ValidationError(
             _('%(value)s is not a valid gov.uk email address'),
             params={'value': value},
+        )
+
+def validate_github(value):
+    # According to the form validation messages on Join Github page,
+    # Github username may only contain alphanumeric characters or hyphens.
+    bad_chars = re.findall('[^\w0-9-]', value)
+    if bad_chars:
+        raise ValidationError(
+            _('Github user names should not contain these characters: '
+              '%(values)s. Check your user name with Github.'),
+            params={'values': repr(bad_chars)},
         )
 
 
@@ -25,3 +38,15 @@ class RequestForm(forms.ModelForm):
         # only be submitted if it is checked.
         self.fields['agree'].required = True
         self.fields['email'].validators.append(validate_gov_email)
+        self.fields['github'].validators.append(validate_github)
+
+
+class AdminRequestForm(RequestForm):
+
+    def __init__(self, *args, **kwargs):
+        super(AdminRequestForm, self).__init__(*args, **kwargs)
+
+        # admin might be able to vouch for them, or not - best to be truthful
+        # rather than constrain
+        self.fields['agree'].required = False
+        self.fields['message'].required = False

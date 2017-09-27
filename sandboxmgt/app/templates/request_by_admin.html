@@ -1,0 +1,59 @@
+{% comment %}
+Form to request a sandbox, but for admin use, so a shorted version compared to that in request.html
+
+form - form object
+{% endcomment %}
+
+<form action="/sandboxes" method="post">
+  {% csrf_token %}
+
+  {% if form.errors %}
+    <div class="error-summary" role="group" aria-labelledby="error-summary-heading-example-1" tabindex="-1">
+
+      <h1 class="heading-medium error-summary-heading" id="error-summary-heading-example-1">
+        The form has errors
+      </h1>
+
+        <p>
+          {{ form.errors }}
+        <p>
+    </div>
+  {% endif %}
+
+  <div class="form-group">
+    <label class="form-label" for="email">Full name: </label>
+    <span class="error-message">
+      {{ form.name.errors }}
+    </span>
+    <input class="form-control" id="name" type="text" name="name" value="{{ form.name.value|default:'David Read' }}">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="email">Email address: </label>
+    <span class="error-message">
+      {{ form.email.errors }}
+    </span>
+    <input class="form-control" id="email" type="text" name="email" value="{{ form.email.value|default:'david.read@digital.cabinet-office.gov.uk' }}">
+  </div>
+
+  <div class="form-group">
+    <label class="form-label" for="github_username">GitHub user name: </label>
+    <span class="error-message">
+      {{ form.github.errors }}
+    </span>
+    <input class="form-control" id="github_username" type="text" name="github" value="{{ form.github.value|default:'davidread' }}">
+  </div>
+
+  <span class="error-message"> {# this is outside the div to suit mobile #}
+        {{ form.agree.errors }}
+  </span>
+  <div class="multiple-choice">
+    <input id="checkbox-terms" name="agree" type="checkbox" {% ifequal form.agree.value True %}checked{% endifequal %}>
+    <label for="checkbox-terms">User agrees to the terms of use</label>
+  </div>
+
+  <p>&nbsp;</p>
+  <div class="form-group">
+    <input class="button" type="submit" value="Submit">
+  </div>
+</form>

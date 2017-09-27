@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 import requests
 from notifications_python_client.notifications import NotificationsAPIClient
 
-from .forms import RequestForm
+from .forms import RequestForm, AdminRequestForm
 
 
 def home(request):
@@ -33,37 +33,42 @@ def request_sandbox(request):
                 reference=None
             )
 
-            # Save form in the database
-            form.save()
-
-            # Save the deploy info in the session - the user is probably not
-            # logged in, but it needs storing for the next page, where feedback
-            # is given on the deployment.
-            request.session['github'] = form.cleaned_data['github']
-            request.session['name'] = form.cleaned_data['name']
-            # hard code the app for now
-            request.session['app'] = 'rstudio'
-            request.session.save()
-
-            # Start the deploy
-            data = dict(
-                name=form.cleaned_data['name'],
-                github=form.cleaned_data['github'],
-                email=form.cleaned_data['email'],
-                )
-            try:
-                send_request_to_deploy_box('api/deploy', post_json_data=data)
-            except requests.RequestException as e:
-                return HttpResponse(str(e), status=500)
-
-            # Redirect user to the deploy waiting/updates page
-            return HttpResponseRedirect('/deploy')
-
+            return save_request_form_and_start_deploy(
+                form, request, send_email_notifications=True)
     else:
         form = RequestForm()
 
     return render(request, 'request.html', {'form': form})
 
+
+def save_request_form_and_start_deploy(form, request,
+                                       send_email_notifications):
+    # Save form in the database
+    form.save()
+
+    # Save the deploy info in the session - the user is probably not
+    # logged in, but it needs storing for the next page, where feedback
+    # is given on the deployment.
+    request.session['github'] = form.cleaned_data['github']
+    request.session['name'] = form.cleaned_data['name']
+    # hard code the app for now
+    request.session['app'] = 'rstudio'
+    request.session['send_email_notifications'] = True
+    request.session.save()
+
+    # Start the deploy
+    data = dict(
+        name=form.cleaned_data['name'],
+        github=form.cleaned_data['github'],
+        email=form.cleaned_data['email'],
+        )
+    try:
+        send_request_to_deploy_box('api/deploy', post_json_data=data)
+    except requests.RequestException as e:
+        return HttpResponse(str(e), status=500)
+
+    # Redirect user to the deploy waiting/updates page
+    return HttpResponseRedirect('/deploy')
 
 def user_is_admin(user):
     return user.groups.filter(name='admin').exists()
@@ -107,12 +112,22 @@ def deploy(request):
 
 @user_passes_test(user_is_admin)
 def sandboxes(request):
+    if request.method == 'POST':
+        # form is v similar to the one in sandboxes
+        form = AdminRequestForm(request.POST)
+        if form.is_valid():
+            return save_request_form_and_start_deploy(
+                form, request, send_email_notifications=False)
+    else:
+        form = AdminRequestForm()
+
     try:
         response = send_request_to_deploy_box('api/pod-statuses')
     except requests.RequestException as e:
         return HttpResponse(str(e), status=500)
     sandboxes = response.json()
-    return render(request, 'pod_statuses.html', {'sandboxes': sandboxes})
+    return render(request, 'sandboxes.html',
+                  {'sandboxes': sandboxes, 'form': form})
 
 def send_request_to_deploy_box(url_path, post_json_data=None, kwargs=None):
     '''
