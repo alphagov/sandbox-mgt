@@ -68,9 +68,11 @@ def request_sandbox(request):
 def user_is_admin(user):
     return user.groups.filter(name='admin').exists()
 
+
 @login_required
 def my_sandbox(request):
     return render(request, 'my_sandbox.html')
+
 
 def deploy(request):
     try:
@@ -105,6 +107,39 @@ def deploy(request):
     else:
         return render(request, 'deployed.html', dict(app=app, pod_status=pod))
 
+
+@login_required
+def delete(request):
+    try:
+        github = request.session['github']
+        app = request.session['app']
+    except KeyError:
+        return HttpResponse('Could not get details of the request. Has your '
+                            'browser got cookies enabled?', status=400)
+    # find out the status of the deploy
+    try:
+        response = send_request_to_deploy_box('api/delete')
+    except requests.RequestException as e:
+        return HttpResponse(str(e), status=500)
+
+    pods = response.json()
+
+    filtered_pods = [
+        pod for pod in pods
+        if pod['app'] == app and pod['user'] == github]
+
+    # TODO get the correct user
+    if not filtered_pods:
+        pod = {'phase': 'Not started yet', 'status': '', 'messages': ''}
+    else:
+        pod = filtered_pods[0]
+
+    if pod['status'] != 'Deleted':
+        return render(request, 'deleting.html', dict(app=app, pod_status=pod))
+    else:
+        return render(request, 'deleted.html', dict(app=app, pod_status=pod))
+
+
 @user_passes_test(user_is_admin)
 def sandboxes(request):
     try:
@@ -113,6 +148,7 @@ def sandboxes(request):
         return HttpResponse(str(e), status=500)
     sandboxes = response.json()
     return render(request, 'pod_statuses.html', {'sandboxes': sandboxes})
+
 
 def send_request_to_deploy_box(url_path, post_json_data=None, kwargs=None):
     '''
