@@ -13,6 +13,7 @@ def validate_gov_email(value):
             params={'value': value},
         )
 
+
 def validate_email(value):
     # guard against errors like commas: john,smith@...
     # which screw up the helm command later on
@@ -21,6 +22,7 @@ def validate_email(value):
             _('%(value)s is not a valid email address'),
             params={'value': value},
             )
+
 
 def validate_github(value):
     # According to the form validation messages on Join Github page,
@@ -60,3 +62,9 @@ class AdminRequestForm(RequestForm):
         # rather than constrain
         self.fields['agree'].required = False
         self.fields['message'].required = False
+
+
+class DeleteForm(forms.Form):
+
+    github = forms.CharField(max_length=255)
+    app = forms.CharField(max_length=255)

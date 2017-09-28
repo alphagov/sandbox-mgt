@@ -14,6 +14,15 @@
             Open my sandbox
           </a>
           <br>
+          <form action="{% url 'delete' %}" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+              <input type="hidden" name="github" value="{{ user.username }}">
+              <input type="hidden" name="app" value="rstudio">
+              <input class="button" type="submit" value="Delete">
+            </div>
+          </form>
           <a href="https://{{ user.username }}-rstudio.tools.sandbox.data-science.org.uk">
             Delete
           </a>
