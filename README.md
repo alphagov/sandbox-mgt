@@ -154,6 +154,7 @@ To deploy to PaaS, set-up your account first.
 
        cf login -a api.cloud.service.gov.uk -u <YOUR-EMAIL-ADDRESS>
 
+   It may ask you which space - see next section to answer that.
 
 ### Deploy the app
 
@@ -231,10 +232,10 @@ cd /home/vcap/app/sandboxmgt/
 python manage.py shell
 ```
 
-Find the user (here we use the email attached to the Github account) and give them staff & superuser permissions:
+Find the user (using the Github username) and give them staff & superuser permissions:
 ```
 from django.contrib.auth.models import User
-user = User.objects.get(email='david.read@hackneyworkshop.com')
+user = User.objects.get(username='davidread')  # github username
 user.is_staff = True
 user.is_superuser = True
 user.save()
