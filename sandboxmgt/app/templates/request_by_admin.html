@@ -25,7 +25,7 @@ form - form object
     <span class="error-message">
       {{ form.name.errors }}
     </span>
-    <input class="form-control" id="name" type="text" name="name" value="{{ form.name.value|default:'David Read' }}">
+    <input class="form-control" id="name" type="text" name="name" value="{{ form.name.value|default:'' }}">
   </div>
 
   <div class="form-group">
@@ -33,7 +33,7 @@ form - form object
     <span class="error-message">
       {{ form.email.errors }}
     </span>
-    <input class="form-control" id="email" type="text" name="email" value="{{ form.email.value|default:'david.read@digital.cabinet-office.gov.uk' }}">
+    <input class="form-control" id="email" type="text" name="email" value="{{ form.email.value|default:'@digital.cabinet-office.gov.uk' }}">
   </div>
 
   <div class="form-group">
@@ -41,7 +41,7 @@ form - form object
     <span class="error-message">
       {{ form.github.errors }}
     </span>
-    <input class="form-control" id="github_username" type="text" name="github" value="{{ form.github.value|default:'davidread' }}">
+    <input class="form-control" id="github_username" type="text" name="github" value="{{ form.github.value|default:'' }}">
   </div>
 
   <span class="error-message"> {# this is outside the div to suit mobile #}
