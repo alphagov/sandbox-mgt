@@ -143,8 +143,8 @@ def deploy(request):
         return render(request, 'deployed.html', dict(app=app, pod_status=pod))
 
 
+@login_required
 def delete(request):
-    import ipdb; ipdb.set_trace()
     try:
         github = request.session['github']
         app = request.session['app']
