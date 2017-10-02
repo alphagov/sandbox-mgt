@@ -8,6 +8,7 @@ import requests
 from notifications_python_client.notifications import NotificationsAPIClient
 
 from .forms import RequestForm, AdminRequestForm
+from .models import Request
 
 
 def home(request):
@@ -126,6 +127,7 @@ def admin(request):
     except requests.RequestException as e:
         return HttpResponse(str(e), status=500)
     sandboxes = response.json()
+    populate_user_info(sandboxes)
     return render(request, 'admin.html',
                   {'sandboxes': sandboxes, 'form': form})
 
@@ -144,3 +146,17 @@ def send_request_to_deploy_box(url_path, post_json_data=None, kwargs=None):
         response = requests.post(url, json=post_json_data, **kwargs)
     response.raise_for_status()
     return response
+
+def populate_user_info(sandboxes):
+    '''Adds the user details to the sandboxes supplied'''
+    for sandbox in sandboxes:
+        github = sandbox['user']
+        try:
+            user = Request.objects.filter(github=github).all().last()
+        except Request.DoesNotExist:
+            # sandbox was not created by this web app - could have been
+            # command-line, or by a different copy of this web app connected to
+            # the same k8s cluster.
+            user = None
+        if user:
+            sandbox['name'] = user.name
