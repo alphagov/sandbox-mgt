@@ -14,7 +14,7 @@
             Open my sandbox
           </a>
           <br>
-          <form action="{% url 'delete' %}" method="post">
+          <form action="{% url 'delete_sandbox' %}" method="post">
             {% csrf_token %}
 
             <div class="form-group">
