@@ -42,7 +42,9 @@ def request_sandbox(request):
     return render(request, 'request.html', {'form': form})
 
 
+@login_required
 def delete_sandbox(request):
+    import ipdb; ipdb.set_trace()
     if request.method == 'POST':
         form = DeleteForm(request.POST)
         if form.is_valid():
@@ -84,6 +86,7 @@ def save_request_form_and_start_deploy(form, request,
 
 
 def start_delete(form, request):
+    import ipdb; ipdb.set_trace()
     # Start the deploy
     data = dict(
             github=form.cleaned_data['github'],
@@ -141,6 +144,7 @@ def deploy(request):
 
 
 def delete(request):
+    import ipdb; ipdb.set_trace()
     try:
         github = request.session['github']
         app = request.session['app']
