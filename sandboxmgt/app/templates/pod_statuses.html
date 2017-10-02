@@ -8,8 +8,15 @@ sandboxes - pod_status api response - list of sandbox dicts
   {% for sandbox in sandboxes %}
     <tr>
       <td>
-        <a href="https://{{ sandbox.user }}-rstudio.tools.sandbox.data-science.org.uk">
+        {% if sandbox.name %}
+          {{ sandbox.name }} ({{ sandbox.user }})
+        {% else %}
           {{ sandbox.user }}
+        {% endif %}
+      </td>
+      <td>
+        <a href="https://{{ sandbox.user }}-rstudio.tools.sandbox.data-science.org.uk">
+          R Studio
         </a>
       </td>
       <td>
