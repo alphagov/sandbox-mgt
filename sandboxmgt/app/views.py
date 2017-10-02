@@ -111,7 +111,7 @@ def deploy(request):
         return render(request, 'deployed.html', dict(app=app, pod_status=pod))
 
 @user_passes_test(user_is_admin)
-def sandboxes(request):
+def admin(request):
     if request.method == 'POST':
         # form is v similar to the one in sandboxes
         form = AdminRequestForm(request.POST)
@@ -126,7 +126,7 @@ def sandboxes(request):
     except requests.RequestException as e:
         return HttpResponse(str(e), status=500)
     sandboxes = response.json()
-    return render(request, 'sandboxes.html',
+    return render(request, 'admin.html',
                   {'sandboxes': sandboxes, 'form': form})
 
 def send_request_to_deploy_box(url_path, post_json_data=None, kwargs=None):
