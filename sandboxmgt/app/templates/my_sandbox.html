@@ -3,9 +3,10 @@
 {% load i18n %}
 
 {% block inner_content %}
-<main id="main" role="main" tabindex="-1">
 
   <div class="container">
+    <div class="grid-row">
+      <div class="column-full">
     <section class="content-section">
       <h2 class="content-section__title">My sandbox</h2>
       <p class="content-section__body">
@@ -14,6 +15,7 @@
             Open my sandbox
           </a>
           <br>
+          <div>
           <form action="{% url 'delete_sandbox' %}" method="post">
             {% csrf_token %}
 
@@ -23,17 +25,22 @@
               <input class="button" type="submit" value="Delete">
             </div>
           </form>
-          <a href="https://{{ user.username }}-rstudio.tools.sandbox.data-science.org.uk">
-            Delete
-          </a>
           <br>
-          <a href="https://{{ user.username }}-rstudio.tools.sandbox.data-science.org.uk">
-            Redeploy
-          </a>
+          <form action="{% url 'redeploy_sandbox' %}" method="post">
+              {% csrf_token %}
+  
+              <div class="form-group">
+                <input type="hidden" name="github" value="{{ user.username }}">
+                <input type="hidden" name="app" value="rstudio">
+                <input class="button" type="submit" value="Redeploy">
+              </div>
+            </form>
+          </div>
         {% endif %}
       </p>
     </section>
   </div>
+    </div>
+  </div>
 
-</main>
 {% endblock %}
