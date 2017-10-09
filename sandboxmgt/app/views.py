@@ -9,7 +9,10 @@ import requests
 from notifications_python_client.notifications import NotificationsAPIClient
 
 from .forms import RequestForm, AdminRequestForm, DeleteForm, RedeployForm
+<<<<<<< HEAD
 from .models import Request
+=======
+>>>>>>> f112dbf66290160cd33b2b9ed6a17ee62c9cfea7
 
 
 def home(request):
@@ -176,8 +179,8 @@ def deploy(request):
         return render(request, 'deployed.html', dict(app=app, pod_status=pod))
 
 
+@login_required
 def delete(request):
-    import ipdb; ipdb.set_trace()
     try:
         github = request.session['github']
         app = request.session['app']
