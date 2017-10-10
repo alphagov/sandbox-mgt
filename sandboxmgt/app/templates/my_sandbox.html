@@ -7,39 +7,70 @@
 <div class="container">
   <div class="grid-row">
     <div class="column-full">
-    <section class="content-section">
-      <h2 class="content-section__title">My sandbox</h2>
-      <p class="content-section__body">
-        {% if user and user.is_authenticated %}
-          <a href="https://{{ user.username }}-rstudio.tools.sandbox.data-science.org.uk">
-            Open my sandbox
-          </a>
-          <br>
-          <div>
-            <form action="{% url 'delete_sandbox' %}" method="post">
-              {% csrf_token %}
+      <section class="content-section">
 
-              <div class="form-group">
-                <input type="hidden" name="github" value="{{ user.username }}">
-                <input type="hidden" name="app" value="rstudio">
-                <input class="button" type="submit" value="Delete">
-              </div>
-            </form>
-            <br>
-            <form action="{% url 'delete_sandbox' %}" method="post">
-                {% csrf_token %}
-
-                <div class="form-group">
-                  <input type="hidden" name="github" value="{{ user.username }}">
-                  <input type="hidden" name="app" value="rstudio">
-                  <input type="hidden" name="then_redeploy" value="True">
-                  <input class="button" type="submit" value="Redeploy">
-                </div>
-            </form>
-          </div>
+<h2 class="content-section__title">My sandbox</h2>
+<table>
+  {% for app, pod in apps_and_pods.items %}
+    <tr>
+      <td>
+        <a href="https://{{ user }}-{{ app }}.tools.sandbox.data-science.org.uk">
+          R Studio
+        </a>
+      </td>
+      <td>
+        {% if pod and pod.error %}
+          <div class="error">Error message: {{ pod.messages }}</div>
+          <div class="error">Phase: {{ pod.phase }}</div>
+          <div class="error">Status: {{ pod.status }}</div>
+        {% elif pod %}
+          <span class="tick-cross-tick">
+            <span class="visually-hidden">Can</span>
+              {{ pod.status }}
+          </span>
+        {% else %}
+          <span>Not deployed</span>
         {% endif %}
-      </p>
-    </section>
+      </td>
+      <td style="width: 90px">
+        {% if pod %}
+          {# delete button #}
+          <form action="{% url 'delete_sandbox' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="github" value="{{ user }}">
+            <input type="hidden" name="app" value="rstudio">
+            <input class="button button-secondary" type="submit" value="Delete">
+          </form>
+        {% endif %}
+      </td>
+      <td>
+        {% if pod %}
+          {# redeploy button #}
+          <form action="{% url 'delete_sandbox' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="github" value="{{ user }}">
+              <input type="hidden" name="app" value="rstudio">
+              <input type="hidden" name="then_redeploy" value="True">
+              <input class="button button-secondary" type="submit" value="Redeploy">
+          </form>
+        {% endif %}
+      </td>
+      <td>
+        {% if not pod %}
+          {# deploy button #}
+          <form action="{% url 'deploy_start' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="github" value="{{ user }}">
+              <input type="hidden" name="app" value="rstudio">
+              <input class="button button-secondary" type="submit" value="Deploy">
+          </form>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+
+      </section>
     </div>
   </div>
 </div>

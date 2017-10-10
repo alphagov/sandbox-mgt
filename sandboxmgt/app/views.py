@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.views.decorators.http import require_POST
 
 import requests
 from notifications_python_client.notifications import NotificationsAPIClient
@@ -34,9 +35,13 @@ def request_sandbox(request):
                 personalisation=personalisation,
                 reference=None
             )
+            # Save form in the database
+            form.save()
 
-            return save_request_form_and_start_deploy(
-                form, request, send_email_notifications=True)
+            return _start_deploy(
+                form.cleaned_data['name'], form.cleaned_data['github'],
+                form.cleaned_data['email'], request,
+                send_email_notifications=True)
     else:
         form = RequestForm()
 
@@ -67,16 +72,12 @@ def redeploy_sandbox(request):
     return render(request, 'my_sandbox.html', {'form': form})
 
 
-def save_request_form_and_start_deploy(form, request,
-                                       send_email_notifications):
-    # Save form in the database
-    form.save()
-
+def _start_deploy(name, github, email, request, send_email_notifications):
     # Save the deploy info in the session - the user is probably not
     # logged in, but it needs storing for the next page, where feedback
     # is given on the deployment.
-    request.session['github'] = form.cleaned_data['github']
-    request.session['name'] = form.cleaned_data['name']
+    request.session['github'] = github
+    request.session['name'] = name
     # hard code the app for now
     request.session['app'] = 'rstudio'
     request.session['send_email_notifications'] = True
@@ -84,9 +85,9 @@ def save_request_form_and_start_deploy(form, request,
 
     # Start the deploy
     data = dict(
-        name=form.cleaned_data['name'],
-        github=form.cleaned_data['github'],
-        email=form.cleaned_data['email'],
+        name=name,
+        github=github,
+        email=email,
         )
     try:
         send_request_to_deploy_box('api/deploy', post_json_data=data)
@@ -122,7 +123,19 @@ def user_is_admin(user):
 
 @login_required
 def my_sandbox(request):
-    return render(request, 'my_sandbox.html')
+    try:
+        my_pods = get_pod_statuses(filter_user=request.user.username)
+    except requests.RequestException as e:
+        return HttpResponse(str(e), status=500)
+    all_apps = ['rstudio']
+    def get_pod_by_app(app):
+        for pod in my_pods:
+            if pod['app'] == app:
+                return pod
+    apps_and_pods = dict((app, get_pod_by_app(app)) for app in all_apps)
+    return render(request, 'my_sandbox.html', dict(
+                  apps_and_pods=apps_and_pods,
+                  user=request.user.username))
 
 
 def deploy(request):
@@ -134,20 +147,9 @@ def deploy(request):
                             'browser got cookies enabled?', status=400)
     # find out the status of the deploy
     try:
-        response = send_request_to_deploy_box('api/pod-statuses')
+        filtered_pods = get_pod_statuses(filter_app=app, filter_user=github)
     except requests.RequestException as e:
         return HttpResponse(str(e), status=500)
-    pods = response.json()
-    # e.g.
-    # [{'app': 'rstudio',
-    #   'error': False,
-    #   'messages': '',
-    #   'phase': 'Running',
-    #   'status': 'Ready',
-    #   'user': '<github-username>'},
-    filtered_pods = [
-        pod for pod in pods
-        if pod['app'] == app and pod['user'] == github]
     # TODO get the correct user
     if not filtered_pods:
         pod = {'phase': 'Not started yet', 'status': '', 'messages': ''}
@@ -170,14 +172,9 @@ def delete(request):
                             'browser got cookies enabled?', status=400)
     # find out the status of the deploy
     try:
-        response = send_request_to_deploy_box('api/pod-statuses')
+        filtered_pods = get_pod_statuses(filter_app=app, filter_user=github)
     except requests.RequestException as e:
         return HttpResponse(str(e), status=500)
-    pods = response.json()
-
-    filtered_pods = [
-        pod for pod in pods
-        if pod['app'] == app and pod['user'] == github]
 
     # TODO get the correct user
     if not filtered_pods:
@@ -208,19 +205,47 @@ def admin(request):
         # form is v similar to the one in sandboxes
         form = AdminRequestForm(request.POST)
         if form.is_valid():
-            return save_request_form_and_start_deploy(
-                form, request, send_email_notifications=False)
+            # Save form in the database
+            form.save()
+            return _start_deploy(
+                form.cleaned_data['name'], form.cleaned_data['github'],
+                form.cleaned_data['email'], request,
+                send_email_notifications=False)
     else:
         form = AdminRequestForm()
 
     try:
-        response = send_request_to_deploy_box('api/pod-statuses')
+        sandboxes = get_pod_statuses()
     except requests.RequestException as e:
         return HttpResponse(str(e), status=500)
-    sandboxes = response.json()
     populate_user_info(sandboxes)
     return render(request, 'admin.html',
                   {'sandboxes': sandboxes, 'form': form})
+
+
+@require_POST
+def deploy_start(request):
+    # Passed-in parameters
+    try:
+        github = request.POST['github']
+        # app not passed through (for now)
+    except KeyError as e:
+        return HttpResponse('Missing parameter: {}'.format(e), status=400)
+
+    # Request table gives us the user's full name
+    try:
+        user = Request.objects.filter(github=github).all().last()
+    except Request.DoesNotExist:
+        # sandbox was not created by this web app - could have been
+        # command-line, or by a different copy of this web app connected to
+        # the same k8s cluster.
+        return HttpResponse('User details not found. Fill in the "request" '
+                            'form first.', status=400)
+    name = user.name
+    email = user.email
+
+    return _start_deploy(name, github, email, request,
+                         send_email_notifications=False)
 
 
 def send_request_to_deploy_box(url_path, post_json_data=None, kwargs=None):
@@ -253,3 +278,26 @@ def populate_user_info(sandboxes):
             user = None
         if user:
             sandbox['name'] = user.name
+
+
+def get_pod_statuses(filter_app=None, filter_user=None):
+    '''May raise requests.RequestException'''
+    response = send_request_to_deploy_box('api/pod-statuses')
+    pods = response.json()
+    # e.g.
+    # [{'app': 'rstudio',
+    #   'error': False,
+    #   'messages': '',
+    #   'phase': 'Running',
+    #   'status': 'Ready',
+    #   'user': '<github-username>'},
+
+    def apply_filters(pod):
+        if filter_user is not None and pod['user'] != filter_user:
+            return False
+        if filter_app is not None and pod['app'] != filter_app:
+            return False
+        return True
+
+    return [pod for pod in pods
+            if apply_filters(pod)]
