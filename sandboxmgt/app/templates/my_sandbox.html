@@ -4,9 +4,9 @@
 
 {% block inner_content %}
 
-  <div class="container">
-    <div class="grid-row">
-      <div class="column-full">
+<div class="container">
+  <div class="grid-row">
+    <div class="column-full">
     <section class="content-section">
       <h2 class="content-section__title">My sandbox</h2>
       <p class="content-section__body">
@@ -16,32 +16,32 @@
           </a>
           <br>
           <div>
-          <form action="{% url 'delete_sandbox' %}" method="post">
-            {% csrf_token %}
-
-            <div class="form-group">
-              <input type="hidden" name="github" value="{{ user.username }}">
-              <input type="hidden" name="app" value="rstudio">
-              <input class="button" type="submit" value="Delete">
-            </div>
-          </form>
-          <br>
-          <form action="{% url 'delete_sandbox' %}" method="post">
+            <form action="{% url 'delete_sandbox' %}" method="post">
               {% csrf_token %}
-  
+
               <div class="form-group">
                 <input type="hidden" name="github" value="{{ user.username }}">
                 <input type="hidden" name="app" value="rstudio">
-                <input type="hidden" name="then_redeploy" value="True">
-                <input class="button" type="submit" value="Redeploy">
+                <input class="button" type="submit" value="Delete">
               </div>
+            </form>
+            <br>
+            <form action="{% url 'delete_sandbox' %}" method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                  <input type="hidden" name="github" value="{{ user.username }}">
+                  <input type="hidden" name="app" value="rstudio">
+                  <input type="hidden" name="then_redeploy" value="True">
+                  <input class="button" type="submit" value="Redeploy">
+                </div>
             </form>
           </div>
         {% endif %}
       </p>
     </section>
-  </div>
     </div>
   </div>
+</div>
 
 {% endblock %}
