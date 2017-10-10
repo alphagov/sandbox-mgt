@@ -8,7 +8,7 @@ from django.urls import reverse
 import requests
 from notifications_python_client.notifications import NotificationsAPIClient
 
-from .forms import RequestForm, AdminRequestForm, DeleteForm, RedeployForm
+from .forms import RequestForm, AdminRequestForm, DeleteForm
 from .models import Request
 
 
@@ -100,8 +100,9 @@ def save_request_form_and_start_deploy(form, request,
 def start_delete(form, request):
     request.session['github'] = form.cleaned_data['github']
     request.session['app'] = form.cleaned_data['app']
+    request.session['then_redeploy'] = form.cleaned_data.get('then_redeploy')
 
-    # Start the deploy
+    # Start the delete
     data = dict(
             github=form.cleaned_data['github'],
             app=form.cleaned_data['app'],
@@ -113,24 +114,6 @@ def start_delete(form, request):
 
     # Redirect user to the deploy waiting/updates page
     return HttpResponseRedirect(reverse('delete'))
-
-
-def start_redeploy(form, request):
-    request.session['github'] = form.cleaned_data['github']
-    request.session['app'] = form.cleaned_data['app']
-
-    # Start the deploy
-    data = dict(
-            github=form.cleaned_data['github'],
-            app=form.cleaned_data['app'],
-        )
-    try:
-        send_request_to_deploy_box('api/redeploy', post_json_data=data)
-    except requests.RequestException as e:
-        return HttpResponse(str(e), status=500)
-
-    # Redirect user to the deploy waiting/updates page
-    return HttpResponseRedirect(reverse('redeploy'))
 
 
 def user_is_admin(user):
@@ -181,6 +164,7 @@ def delete(request):
     try:
         github = request.session['github']
         app = request.session['app']
+        then_redeploy = request.session.get('then_redeploy')
     except KeyError:
         return HttpResponse('Could not get details of the request. Has your '
                             'browser got cookies enabled?', status=400)
@@ -197,44 +181,25 @@ def delete(request):
 
     # TODO get the correct user
     if not filtered_pods:
-        return render(request, 'deleted.html', dict(app=app))
+        if then_redeploy:
+            # Start the deploy. We put dummy values in name and email because
+            # helm in the backend doesn't really use them to deploy a sandbox.
+            data = dict(
+                name='Redeploy',
+                github=github,
+                email='redeploy@sandbox.com',)
+            try:
+                send_request_to_deploy_box('api/deploy', post_json_data=data)
+            except requests.RequestException as e:
+                return HttpResponse(str(e), status=500)
+
+            # Redirect user to the deploy waiting/updates page
+            return HttpResponseRedirect('/deploy')
+        else:
+            return render(request, 'deleted.html', dict(app=app))
     else:
         pod = filtered_pods[0]
         return render(request, 'deleting.html', dict(app=app, pod_status=pod))
-
-
-def redeploy(request):
-    try:
-        github = request.session['github']
-        app = request.session['app']
-    except KeyError:
-        return HttpResponse('Could not get details of the request. Has your '
-                            'browser got cookies enabled?', status=400)
-    # find out the status of the deploy
-    try:
-        response = send_request_to_deploy_box('api/pod-statuses')
-    except requests.RequestException as e:
-        return HttpResponse(str(e), status=500)
-    pods = response.json()
-    # e.g.
-    # [{'app': 'rstudio',
-    #   'error': False,
-    #   'messages': '',
-    #   'phase': 'Running',
-    #   'status': 'Ready',
-    #   'user': '<github-username>'},
-    filtered_pods = [
-        pod for pod in pods
-        if pod['app'] == app and pod['user'] == github]
-    # TODO get the correct user
-    if not filtered_pods:
-        pod = {'phase': 'Not started yet', 'status': '', 'messages': ''}
-    else:
-        pod = filtered_pods[0]
-    if pod['status'] != 'Ready':
-        return render(request, 'deploying.html', dict(app=app, pod_status=pod))
-    else:
-        return render(request, 'deployed.html', dict(app=app, pod_status=pod))
 
 
 @user_passes_test(user_is_admin)

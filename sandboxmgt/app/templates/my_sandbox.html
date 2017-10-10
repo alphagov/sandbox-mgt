@@ -26,12 +26,13 @@
             </div>
           </form>
           <br>
-          <form action="{% url 'redeploy_sandbox' %}" method="post">
+          <form action="{% url 'delete_sandbox' %}" method="post">
               {% csrf_token %}
   
               <div class="form-group">
                 <input type="hidden" name="github" value="{{ user.username }}">
                 <input type="hidden" name="app" value="rstudio">
+                <input type="hidden" name="then_redeploy" value="True">
                 <input class="button" type="submit" value="Redeploy">
               </div>
             </form>

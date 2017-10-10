@@ -30,9 +30,4 @@ urlpatterns = [
     url(r'^deploy$', views.deploy, name='deploy'),
     url(r'^delete-sandbox$', views.delete_sandbox, name='delete_sandbox'),
     url(r'^delete$', views.delete, name='delete'),
-    url(
-        r'^redeploy-sandbox$',
-        views.redeploy_sandbox,
-        name='redeploy_sandbox'),
-    url(r'^redeploy$', views.redeploy, name='redeploy'),
 ]

@@ -68,9 +68,4 @@ class DeleteForm(forms.Form):
 
     github = forms.CharField(max_length=255)
     app = forms.CharField(max_length=255)
-
-
-class RedeployForm(forms.Form):
-
-    github = forms.CharField(max_length=255)
-    app = forms.CharField(max_length=255)
+    then_redeploy = forms.BooleanField(required=False)
