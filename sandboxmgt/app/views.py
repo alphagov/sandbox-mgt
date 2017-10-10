@@ -3,11 +3,12 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 import requests
 from notifications_python_client.notifications import NotificationsAPIClient
 
-from .forms import RequestForm, AdminRequestForm
+from .forms import RequestForm, AdminRequestForm, DeleteForm
 from .models import Request
 
 
@@ -42,6 +43,30 @@ def request_sandbox(request):
     return render(request, 'request.html', {'form': form})
 
 
+@login_required
+def delete_sandbox(request):
+    if request.method == 'POST':
+        form = DeleteForm(request.POST)
+        if form.is_valid():
+            return start_delete(form, request)
+    else:
+        form = DeleteForm()
+
+    return render(request, 'my_sandbox.html', {'form': form})
+
+
+@login_required
+def redeploy_sandbox(request):
+    if request.method == 'POST':
+        form = RedeployForm(request.POST)
+        if form.is_valid():
+            return start_redeploy(form, request)
+    else:
+        form = RedeployForm()
+
+    return render(request, 'my_sandbox.html', {'form': form})
+
+
 def save_request_form_and_start_deploy(form, request,
                                        send_email_notifications):
     # Save form in the database
@@ -71,12 +96,34 @@ def save_request_form_and_start_deploy(form, request,
     # Redirect user to the deploy waiting/updates page
     return HttpResponseRedirect('/deploy')
 
+
+def start_delete(form, request):
+    request.session['github'] = form.cleaned_data['github']
+    request.session['app'] = form.cleaned_data['app']
+    request.session['then_redeploy'] = form.cleaned_data.get('then_redeploy')
+
+    # Start the delete
+    data = dict(
+            github=form.cleaned_data['github'],
+            app=form.cleaned_data['app'],
+        )
+    try:
+        send_request_to_deploy_box('api/delete', post_json_data=data)
+    except requests.RequestException as e:
+        return HttpResponse(str(e), status=500)
+
+    # Redirect user to the deploy waiting/updates page
+    return HttpResponseRedirect(reverse('delete'))
+
+
 def user_is_admin(user):
     return user.groups.filter(name='admin').exists()
+
 
 @login_required
 def my_sandbox(request):
     return render(request, 'my_sandbox.html')
+
 
 def deploy(request):
     try:
@@ -111,6 +158,50 @@ def deploy(request):
     else:
         return render(request, 'deployed.html', dict(app=app, pod_status=pod))
 
+
+@login_required
+def delete(request):
+    try:
+        github = request.session['github']
+        app = request.session['app']
+        then_redeploy = request.session.get('then_redeploy')
+    except KeyError:
+        return HttpResponse('Could not get details of the request. Has your '
+                            'browser got cookies enabled?', status=400)
+    # find out the status of the deploy
+    try:
+        response = send_request_to_deploy_box('api/pod-statuses')
+    except requests.RequestException as e:
+        return HttpResponse(str(e), status=500)
+    pods = response.json()
+
+    filtered_pods = [
+        pod for pod in pods
+        if pod['app'] == app and pod['user'] == github]
+
+    # TODO get the correct user
+    if not filtered_pods:
+        if then_redeploy:
+            # Start the deploy. We put dummy values in name and email because
+            # helm in the backend doesn't really use them to deploy a sandbox.
+            data = dict(
+                name='Redeploy',
+                github=github,
+                email='redeploy@sandbox.com',)
+            try:
+                send_request_to_deploy_box('api/deploy', post_json_data=data)
+            except requests.RequestException as e:
+                return HttpResponse(str(e), status=500)
+
+            # Redirect user to the deploy waiting/updates page
+            return HttpResponseRedirect('/deploy')
+        else:
+            return render(request, 'deleted.html', dict(app=app))
+    else:
+        pod = filtered_pods[0]
+        return render(request, 'deleting.html', dict(app=app, pod_status=pod))
+
+
 @user_passes_test(user_is_admin)
 def admin(request):
     if request.method == 'POST':
@@ -131,6 +222,7 @@ def admin(request):
     return render(request, 'admin.html',
                   {'sandboxes': sandboxes, 'form': form})
 
+
 def send_request_to_deploy_box(url_path, post_json_data=None, kwargs=None):
     '''
     May raise requests.RequestException
@@ -146,6 +238,7 @@ def send_request_to_deploy_box(url_path, post_json_data=None, kwargs=None):
         response = requests.post(url, json=post_json_data, **kwargs)
     response.raise_for_status()
     return response
+
 
 def populate_user_info(sandboxes):
     '''Adds the user details to the sandboxes supplied'''
