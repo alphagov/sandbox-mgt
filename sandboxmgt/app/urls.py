@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^request$', views.request_sandbox, name='request_sandbox'),
     url(r'^my-sandbox$', views.my_sandbox, name='my_sandbox'),
     url(r'^admin$', views.admin, name='admin'),
+    url(r'^deploy-start$', views.deploy_start, name='deploy_start'),
     url(r'^deploy$', views.deploy, name='deploy'),
     url(r'^delete-sandbox$', views.delete_sandbox, name='delete_sandbox'),
     url(r'^delete$', views.delete, name='delete'),
