@@ -17,8 +17,8 @@
           </p>
 
           <!-- <a href="{% url 'my_sandbox' %}" role="button" class="hero-button">My sandbox</a> -->
-          <a href="{% url 'request_sandbox' %}" role="button" class="hero-button">
-            Request a sandbox
+          <a href="{% url 'register_github_intro' %}" role="button" class="hero-button">
+            Register for a sandbox
           </a>
           <span class="hero-alternative-action">
             or <a href="{% url 'auth0_login' %}">sign in</a> if you already have one
@@ -31,6 +31,17 @@
         -->
       </div>
     </div>
+  </div>
+
+  <div class="container">
+    <section class="content-section">
+      {% blocktrans %}
+        <h2 class="content-section__title">Safe to use</h2>
+        <p class="content-section__body">
+         Blah blah.
+        </p>
+      {% endblocktrans %}
+    </section>
   </div>
 
   <div class="container">

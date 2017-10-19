@@ -9,43 +9,12 @@ from django.views.decorators.http import require_POST
 import requests
 from notifications_python_client.notifications import NotificationsAPIClient
 
-from .forms import RequestForm, AdminRequestForm, DeleteForm
+from .forms import AdminRequestForm, DeleteForm
 from .models import Request
 
 
 def home(request):
     return render(request, "home.html", {})
-
-
-def request_sandbox(request):
-    if request.method == 'POST':
-        form = RequestForm(request.POST)
-        if form.is_valid():
-            # Send form data by email
-            personalisation = {
-                'name': form.cleaned_data['name'],
-                'email': form.cleaned_data['email'],
-                'github': form.cleaned_data['github'],
-                'message': form.cleaned_data['message']
-            }
-            notify_client = NotificationsAPIClient(settings.NOTIFY_API_KEY)
-            response = notify_client.send_email_notification(
-                email_address=settings.NOTIFY_RECIPIENT_EMAIL,
-                template_id=settings.NOTIFY_EMAIL_TEMPLATE_ID,
-                personalisation=personalisation,
-                reference=None
-            )
-            # Save form in the database
-            form.save()
-
-            return _start_deploy(
-                form.cleaned_data['name'], form.cleaned_data['github'],
-                form.cleaned_data['email'], request,
-                send_email_notifications=True)
-    else:
-        form = RequestForm()
-
-    return render(request, 'request.html', {'form': form})
 
 
 @login_required
