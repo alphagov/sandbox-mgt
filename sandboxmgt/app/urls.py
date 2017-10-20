@@ -14,17 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
 from django.conf.urls import url
-from . import views
+from . import views, views_register
 
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^cookies$', TemplateView.as_view(
         template_name='cookies.html'), name='cookies'),
-    url(r'^thanks$', TemplateView.as_view(
-        template_name='thanks.html'), name='thanks'),
-    url(r'^request$', views.request_sandbox, name='request_sandbox'),
+    url(r'^register/?$', RedirectView.as_view(url='/register/github-intro', permanent=False), name='register'),
+    url(r'^register/github-intro$', views_register.github_intro, name='register_github_intro'),
+    url(r'^register/email$', views_register.email, name='register_email'),
+    url(r'^register/email-validate-request$', views_register.email_validate_request, name='register_email_validate_request'),
+    url(r'^register/email-validate$', views_register.email_validate, name='register_email_validate'),
+    url(r'^register/data-security-classification$', views_register.data_security_classification, name='register_data_security_classification'),
+    url(r'^register/data-security-classification-advice$', views_register.data_security_classification_advice, name='register_data_security_classification_advice'),
+    url(r'^register/ethics$', views_register.ethics, name='register_ethics'),
+    url(r'^register/terms$', views_register.terms, name='register_terms'),
     url(r'^my-sandbox$', views.my_sandbox, name='my_sandbox'),
     url(r'^admin$', views.admin, name='admin'),
     url(r'^deploy-start$', views.deploy_start, name='deploy_start'),

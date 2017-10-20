@@ -1,10 +1,10 @@
 {% load auth %}
 
 {% url 'home' as home %}
-{% url 'request_sandbox' as request_path %}
+{% url 'register' as register %}
 {% url 'my_sandbox' as my_sandbox %}
 {% url 'admin' as admin %}
-{% url 'auth0_login' as signin %}
+{% url 'auth0_login' next='register/email-check' as signin %}
 {% url 'auth0_logout' as signout %}
 
 <div data-module="navigation">
@@ -17,7 +17,7 @@
       {% if user and user.is_authenticated %}
         <li class="{% if request.path == my_sandbox %}active{% endif %}"><a href="{{ my_sandbox }}">My sandbox</a></li>
       {% endif %}
-      <li class="{% if request.path == request_path %}active{% endif %}"><a href="{{ request_path }}">Request</a></li>
+      <li class="{% if request.path == register_path %}active{% endif %}"><a href="{{ register }}">Register</a></li>
       <li><a href="https://sandbox-docs.cloudapps.digital/">Documentation</a></li>
       {% if user and user.is_authenticated and user|is_admin %}
         <li class="{% if request.path == admin %}active{% endif %}"><a href="{{ admin }}">Admin</a></li>

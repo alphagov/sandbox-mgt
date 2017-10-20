@@ -36,6 +36,16 @@ def validate_github(value):
         )
 
 
+class EmailForm(forms.Form):
+    email = forms.CharField(label='email')
+
+    def __init__(self, *args, **kwargs):
+        super(EmailForm, self).__init__(*args, **kwargs)
+
+        self.fields['email'].validators.extend([validate_email,
+                                                validate_gov_email])
+
+
 class RequestForm(forms.ModelForm):
     class Meta:
         model = Request
