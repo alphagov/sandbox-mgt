@@ -8,17 +8,17 @@
     <div class="hero">
       <div class="hero__content">
         <div class="hero__body">
-          <h1 class="hero__title">Write code in your browser to analyse your data</h1>
+          <h1 class="hero__title">Write code in your browser to analyse data</h1>
           <div class="hero__inline-image">
             <img src="//placehold.it/646x492/005ea5/ffffff?text=A+supporting+image" alt="" role="presentation">
           </div>
           <p class="hero__description">
-            Try a Data Science Sandbox if you work for a UK government department or agency.
+            Set-up a government data science sandbox to analyse open data if you work for a UK government department or agency
           </p>
 
           <!-- <a href="{% url 'my_sandbox' %}" role="button" class="hero-button">My sandbox</a> -->
           <a href="{% url 'register_github_intro' %}" role="button" class="hero-button">
-            Register for a sandbox
+            Register
           </a>
           <span class="hero-alternative-action">
             or <a href="{% url 'auth0_login' %}">sign in</a> if you already have one
@@ -36,9 +36,9 @@
   <div class="container">
     <section class="content-section">
       {% blocktrans %}
-        <h2 class="content-section__title">Safe to use</h2>
+        <h2 class="content-section__title">Government data science sandbox</h2>
         <p class="content-section__body">
-         Blah blah.
+          Create your own government data science sandbox to try new ways of analysing data, improve your coding skills or to help build a case for your department to invest in data science tools.
         </p>
       {% endblocktrans %}
     </section>
@@ -47,9 +47,9 @@
   <div class="container">
     <section class="content-section">
       {% blocktrans %}
-        <h2 class="content-section__title">Try new tools and techniques</h2>
+        <h2 class="content-section__title">Signing up to the alpha</h2>
         <p class="content-section__body">
-         Access your sandbox from your government-issued computer to run analytical tools, learn about their capabilities. You can also get help building a case for your department to invest in the tools and skills to support them at scale.
+          To sign up to the alpha version of this service, you need a government email address and a GitHub account. We use GitHub to authenticate you and to save the work you do in your sandbox.
         </p>
       {% endblocktrans %}
     </section>
@@ -57,19 +57,20 @@
 
   <div class="container">
     <section class="content-section">
-        <h2 class="content-section__title">About the sandbox</h2>
-        <p class="content-section__body">Government analysis is changing, with data science tools and techniques playing a bigger role. This is an alpha version of a sandbox environment that helps civil servants make the most of that change.</p>
+        <h2 class="content-section__title">Your commitments</h2>
+        <p class="content-section__body">For security reasons, only open data can be loaded into your government data science sandbox. In signing up for one, you’ll be agreeing not to load any sensitive, personal or classified data. You’ll also be agreeing to uphold the <a href="https://www.gov.uk/government/publications/data-science-ethical-framework" target="_blank">Data Science Ethical Data Framework</a>.
+          </p>
     </section>
   </div>
 
   <div class="container">
     <section class="content-section content-section--with-top-border">
       {% blocktrans %}
-        <h2 class="content-section__title">Contact the team</h2>
+        <h2 class="content-section__title">Get help</h2>
         <p class="content-section__body">
-          The sandbox is being developed by the Better Use of Data team at the <a href="https://www.gov.uk/government/organisations/government-digital-service" target="_blank">Government Digital Service</a>.
+          The government data science sandbox is being developed by the Better Use of Data team at the <a href="https://www.gov.uk/government/organisations/government-digital-service" target="_blank">Government Digital Service</a>.
         </p>
-        <p><a href="mailto:data-science-sandbox@digital.cabinet-office.gov.uk">Contact the team</a> if you have a question or wish to give feedback.</p>
+        <p><a href="mailto:data-science-sandbox@digital.cabinet-office.gov.uk">Contact the team</a> if you have feedback, need help, or have a question.</p>
       {% endblocktrans %}
     </section>
   </div>
