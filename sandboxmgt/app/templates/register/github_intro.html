@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block inner_content %}
+
+<div id="content">
+  <main role="main">
+    <div class="grid-row contact">
+
+<div class="column-two-thirds">
+  <h3 class="heading-small">Step 1 of 5</h3>
+</div>
+
+<div class="column-two-thirds">
+  <h1 class="heading-large">GitHub account?</h1>
+
+  <p>You log-in to your Sandbox using your GitHub account because:
+    <ul class="classic">
+      <li>Code that you write in your sandbox should be saved to GitHub, so you'll need an account for that anyway</li>
+      <li>Reusing a GitHub account saves you remembering yet another password</li>
+      <li>GitHub has excellent security, including 2 factor authentication</li>
+    </ul>
+  </p>
+  <p>On the next screen (currently branded "Auth0"), please click "log in with GitHub".</p>
+
+  <p>
+    <a class="button" href="{% url 'auth0_login' %}?redirect_uri=/register/email">Next</a>
+  </p>
+</div>
+
+    </div>
+  </main>
+</div>
+
+{% endblock %}

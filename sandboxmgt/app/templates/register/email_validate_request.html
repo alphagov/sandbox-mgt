@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block inner_content %}
+
+<div id="content">
+  <main role="main">
+    <div class="grid-row contact">
+
+<div class="column-two-thirds">
+  <h3 class="heading-small">Step 2 of 5</h3>
+</div>
+
+<div class="column-two-thirds">
+  <h1 class="heading-large">Email validation</h1>
+
+  <p>We have sent you an email for validation. Open it and click on the link to continue registration.</p>
+
+  <p>
+    <a class="button" href="{% url 'register_email_validate' %}">Pretend the user has clicked the validation link in the email</a>
+  </p>
+</div>
+
+    </div>
+  </main>
+</div>
+
+{% endblock %}

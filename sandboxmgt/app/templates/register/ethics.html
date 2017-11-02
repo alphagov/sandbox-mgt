@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block inner_content %}
+
+<div id="content">
+  <main role="main">
+    <div class="grid-row contact">
+
+<div class="column-two-thirds">
+  <h3 class="heading-small">Step 4 of 5</h3>
+</div>
+
+<div class="column-two-thirds">
+  <h1 class="heading-large">Ethics</h1>
+
+  <p>
+    blah blah
+  </p>
+
+  <form action="{% url 'register_ethics' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <fieldset>
+        <div class="multiple-choice">
+          <input id="agree" name="agree" type="checkbox" value="true">
+          <label for="agree">I agree</label>
+        </div>
+      </fieldset>
+
+      <div class="form-group">
+        <input class="button" type="submit" value="Next">
+      </div>
+    </div>
+  </form>
+</div>
+
+    </div>
+  </main>
+</div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block inner_content %}
+
+<div id="content">
+  <main role="main">
+    <div class="grid-row contact">
+
+<div class="column-two-thirds">
+  <h3 class="heading-small">Step 3 of 5</h3>
+</div>
+
+<div class="column-two-thirds">
+
+  {% if data_security_classification == 'official' or data_security_classification == 'secret' %}
+
+    <h1 class="heading-large">Stop!</h1>
+    <p>Sandbox is only for open data for the time being! We're looking at providing this, but in the meantime please consider alternatives.</p>
+
+  {% elif data_security_classification == 'no' %}
+
+    <h1 class="heading-large">Good!</h1>
+    <p>Just remember not to put any OFFICIAL data or above in the sandbox!</p>
+
+    <p>
+      <a class="button" href="{% url 'register_ethics' %}">Next</a>
+    </p>
+
+  {% elif data_security_classification == 'no' %}
+
+    <h1 class="heading-large">Ok, but bear in mind...</h1>
+    <p>You must not put any OFFICIAL data or above in the sandbox!</p>
+
+    <p>
+      <a class="button" href="{% url 'register_ethics' %}">Next</a>
+    </p>
+
+  {% endif %}
+
+</div>
+
+    </div>
+  </main>
+</div>
+
+{% endblock %}
