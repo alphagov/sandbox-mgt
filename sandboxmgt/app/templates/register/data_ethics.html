@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block inner_content %}
+
+<div id="content">
+  <main role="main">
+    <div class="grid-row contact">
+
+<div class="column-two-thirds">
+  <h3 class="heading-small">Step 4 of 4</h3>
+</div>
+
+<div class="column-two-thirds">
+  <h1 class="heading-large">Your commitments - data science ethics</h1>
+
+  <p>
+    To sign up for a government data science sandbox, you must agree to uphold the <a href="https://www.gov.uk/government/publications/data-science-ethical-framework" target="_blank">Data Science Ethical Data Framework</a>:</p>
+    <ol class="list list-number"><li>Start with clear user need and public benefit</li>
+        <li>Use data and tools which have the minimum intrusion necessary</li>
+        <li>Create robust data science models</li>
+        <li>Be alert to public perceptions</li>
+        <li>Be as open and accountable as possible</li>
+        <li>Keep data secure</li></ol>
+
+<p><a class="button" href="{% url 'register_agree_start' %}">Continue</a></p>
+</div>
+
+    </div>
+  </main>
+</div>
+
+{% endblock %}

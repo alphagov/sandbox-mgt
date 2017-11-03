@@ -9,56 +9,21 @@
     <div class="grid-row contact">
 
 <div class="column-two-thirds">
-  <h3 class="heading-small">Step 3 of 5</h3>
+  <h3 class="heading-small">Step 3 of 4</h3>
 </div>
 
 <div class="column-two-thirds">
-  <h1 class="heading-large">Data security classification</h1>
+  <h1 class="heading-large">Your commitments - sensitive, personally identifiable or classified data</h1>
 
-  <p>Will you be using data which has a security classification?</p>
+  <p>In the alpha version of this service, only open data can be loaded into your government data science sandbox. In signing up for one, you must agree not to load any sensitive or personally identifiable data, or any data classified as OFFICIAL, SECRET or TOP SECRET.</p>
 
-  <form action="{% url 'register_data_security_classification' %}" method="post">
-    {% csrf_token %}
-    <div class="form-group">
-      <fieldset>
+  <h2 class="heading-medium">Terms of Use</h2>
+    <ol class="list list-bullet"><li>I understand my responsibilities under the <a href="https://www.gov.uk/government/publications/government-security-classifications"> Government Security Classifications Policy</a> and my organisation’s policies.</li>
+      <li>I will only use publicly available open data in the government data science sandbox and will take appropriate measures to ensure that other information is not used. I will <a href="mailto:data-science-sandbox@digital.cabinet-office.gov.uk ">report </a> any unintended data being uploaded to the sandbox.</li>
+        <li>I will keep my login information safe and private.</li>
 
-        <legend>
-          <h1 class="heading-medium">Will you be using data which has a security classification?</h1>
-          <span class="error-message">
-            {{ form.data_security_classification.errors }}
-          </span>
-        </legend>
+  <p><a class="button" href="{% url 'register_data_ethics' %}">Continue</a></p>
 
-        {# TODO update version of govuk-elements CSS so that the radios are CIRCLES not SQUARES #}
-        <p>NB you can select one, but the tick is currently invisible! To be fixed...</p>
-        <div class="multiple-choice">
-          <input id="radio-1" type="radio" name="radio-group" value="no">
-          <label for="radio-1">No - it's open data</label>
-        </div>
-        <div class="multiple-choice">
-          <input id="radio-2" type="radio" name="radio-group" value="official">
-          <label for="radio-2">Yes - it's OFFICIAL</label>
-        </div>
-        <div class="multiple-choice">
-          <input id="radio-3" type="radio" name="radio-group" value="secret">
-          <label for="radio-3">Yes - it's SECRET or TOP SECRET</label>
-        </div>
-        <p class="form-block">or</p>
-        <div class="multiple-choice">
-          <input id="radio-4" type="radio" name="radio-group" value="skip">
-          <label for="radio-4">I don't know or haven't decided yet</label>
-        </div>
-
-      </fieldset>
-    </div>
-
-    <div class="form-group">
-      <input class="button" type="submit" value="Next">
-    </div>
-  </form>
-</div>
-
-    </div>
   </main>
 </div>
 
