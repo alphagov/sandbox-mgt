@@ -4,7 +4,7 @@ Form to request a sandbox, but for admin use, so a shorted version compared to t
 form - form object
 {% endcomment %}
 
-<form action="/sandboxes" method="post">
+<form action="/admin" method="post">
   {% csrf_token %}
 
   {% if form.errors %}
