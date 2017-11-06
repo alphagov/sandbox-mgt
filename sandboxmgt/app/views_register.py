@@ -71,21 +71,29 @@ def ethics(request):
 def terms(request):
     if request.method == 'POST':
         if request.POST['agree']:
-            # has_user_already_got_rstudio_deployed?
-            try:
-                my_rstudio = get_pod_statuses(filter_user=request.user.username,
-                                              filter_app='rstudio')
-            except requests.RequestException as e:
-                return HttpResponse(str(e), status=500)
-            if my_rstudio:
-                request.session['github'] = request.user.username
-                request.session['app'] = 'rstudio'
-                return HttpResponseRedirect(reverse('deploy'))
-            else:
-                github = request.user.username
-                email = request.user.email or 'fake_email@example.com'  # TODO
-                return _start_deploy(
-                    'fake name', github, email, request,
-                    send_email_notifications=False)
+            # don't actually deploy for now
+            return HttpResponseRedirect(reverse('register_agree_start'))
+
+            # # has_user_already_got_rstudio_deployed?
+            # try:
+            #     my_rstudio = get_pod_statuses(filter_user=request.user.username,
+            #                                   filter_app='rstudio')
+            # except requests.RequestException as e:
+            #     return HttpResponse(str(e), status=500)
+            # if my_rstudio:
+            #     request.session['github'] = request.user.username
+            #     request.session['app'] = 'rstudio'
+            #     return HttpResponseRedirect(reverse('deploy'))
+            # else:
+            #     github = request.user.username
+            #     email = request.user.email or 'fake_email@example.com'  # TODO
+            #     return _start_deploy(
+            #         'fake name', github, email, request,
+            #         send_email_notifications=False)
+
     return render(request, 'register/terms.html', {})
+
+@login_required
+def agree_start(request):
+    return render(request, 'register/agree_start.html', {})
 

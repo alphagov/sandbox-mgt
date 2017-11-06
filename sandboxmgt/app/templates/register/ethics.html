@@ -13,11 +13,21 @@
 </div>
 
 <div class="column-two-thirds">
-  <h1 class="heading-large">Ethics</h1>
+
+  <h1 class="heading-large">Your commitments - data science ethics</h1>
 
   <p>
-    blah blah
+    To sign up for a government data science sandbox, you must agree to uphold the <a href="https://www.gov.uk/government/publications/data-science-ethical-framework" target="_blank">Data Science Ethical Data Framework</a>:
   </p>
+
+  <ol class="list list-number">
+    <li>Start with clear user need and public benefit</li>
+    <li>Use data and tools which have the minimum intrusion necessary</li>
+    <li>Create robust data science models</li>
+    <li>Be alert to public perceptions</li>
+    <li>Be as open and accountable as possible</li>
+    <li>Keep data secure</li>
+  </ol>
 
   <form action="{% url 'register_ethics' %}" method="post">
     {% csrf_token %}
@@ -30,7 +40,7 @@
       </fieldset>
 
       <div class="form-group">
-        <input class="button" type="submit" value="Next">
+        <input class="button" type="submit" value="Continue">
       </div>
     </div>
   </form>
