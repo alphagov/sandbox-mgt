@@ -31,6 +31,25 @@ sandboxes - pod_status api response - list of sandbox dicts
           </span>
         {% endif %}
       </td>
+      <td style="width: 90px">
+        {# delete button #}
+        <form action="{% url 'delete_sandbox' %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="github" value="{{ sandbox.user }}">
+          <input type="hidden" name="app" value="rstudio">
+          <input class="button button-secondary" type="submit" value="Delete">
+        </form>
+      </td>
+      <td style="width: 90px">
+        {# redeploy button #}
+        <form action="{% url 'delete_sandbox' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="github" value="{{ sandbox.user }}">
+            <input type="hidden" name="app" value="rstudio">
+            <input type="hidden" name="then_redeploy" value="True">
+            <input class="button button-secondary" type="submit" value="Redeploy">
+        </form>
+      </td>
     </tr>
   {% endfor %}
 </table>

@@ -21,6 +21,7 @@ $govuk-blue: #005ea5;
 @import 'util/printable';  // for 'screen' mixin
 @import 'header';
 @import 'tick-cross';
+@import 'design-patterns/buttons';
 
 // ------------------
 // govuk-* overrides
@@ -221,6 +222,12 @@ input[type="checkbox"]:checked + label:after {
 .multiple-choice [type=checkbox] + label::after {
   border-top-style: inset;
 }
+
+// Secondary button
+.button-secondary{
+  @include button($grey-3);
+}
+
 
 // BITS INHERITED FROM DGU
 
