@@ -94,6 +94,10 @@ def terms(request):
     return render(request, 'register/terms.html', {})
 
 @login_required
+def data_ethics(request):
+    return render(request, 'register/data_ethics.html', {})
+
+@login_required
 def agree_start(request):
     return render(request, 'register/agree_start.html', {})
 
