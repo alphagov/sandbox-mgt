@@ -13,11 +13,11 @@
 </div>
 
 <div class="column-two-thirds">
-  <h1 class="heading-large">Terms</h1>
+  <h1 class="heading-large">Terms of Use</h1>
 
-  <p>
-    blah blah
-  </p>
+    <p>I understand my responsibilities under the <a href="https://www.gov.uk/government/publications/government-security-classifications" target="_blank">Government Security Classifications Policy</a> and my organisation's policies, and will act accordingly.</p>
+    <p>I will only use publicly available open data in the government data science sandbox and will take appropriate measures to ensure that other information is not used. I will <a href="mailto:data-science-sandbox@digital.cabinet-office@gov.uk"> report any unintended data</a>.</p>
+    <p>I will keep my login information safe and private.</p>
 
   <form action="{% url 'register_terms' %}" method="post">
     {% csrf_token %}
