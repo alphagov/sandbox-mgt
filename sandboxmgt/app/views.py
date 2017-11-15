@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
@@ -12,6 +14,11 @@ from notifications_python_client.notifications import NotificationsAPIClient
 from .forms import AdminRequestForm, DeleteForm
 from .models import Request
 
+
+# The rstudio pod is not ready when k8s says it is - the readinessProbe would
+# ideally be improved. As a simple alternative we just wait before giving the
+# user the link. Tests show it takes another 30s on average.
+RSTUDIO_EXTRA_WARMUP_TIME = 45  # seconds
 
 def home(request):
     return render(request, "home.html", {})
@@ -124,7 +131,11 @@ def deploy(request):
         pod = {'phase': 'Not started yet', 'status': '', 'messages': ''}
     else:
         pod = filtered_pods[0]
-    if pod['status'] != 'Ready':
+    age = datetime.datetime.now() - \
+        datetime.datetime.strptime(pod['lastTransitionTime'],
+                                   '%Y-%m-%dT%H:%M:%SZ')
+    if pod['status'] != 'Ready' or \
+            age < datetime.timedelta(seconds=RSTUDIO_EXTRA_WARMUP_TIME):
         return render(request, 'deploying.html', dict(app=app, pod_status=pod))
     else:
         return render(request, 'deployed.html', dict(app=app, pod_status=pod))

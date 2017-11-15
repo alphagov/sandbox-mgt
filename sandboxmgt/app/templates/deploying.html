@@ -22,6 +22,9 @@
             {{ pod_status.status }}<br>
             {{ pod_status.messages }}
           </span>
+          {% if pod_status.status == "Ready" %}
+              - just waiting for the last elements to complete
+          {% endif %}
         </p>
 
         {# hack to make it refresh the page to see if it's done #}
